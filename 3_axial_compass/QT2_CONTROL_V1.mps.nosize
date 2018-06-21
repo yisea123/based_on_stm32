@@ -1,0 +1,203 @@
+Map File Summary V3.4.1 for IccV7 AVR
+run at 2014-12-01 17:48:40
+on project "F:\work\Bugatti\QT0\SOF\QT2_Control_V1\QT2_CONTROL_V1"
+
+ Please note: If a SRAM variable or FLASH item appears larger than it should be,
+ then almost certainly it is because your program contains unnamed items such as
+ literal strings, e.g. from cstrcpy(s,"abc"), or static variables in system lib
+ as e.g. printf local buffer.
+ The compiler is always right in that cases, all space allocated is really used.
+
+Memory summary:
+
+flash size is 65536 bytes (64KB)
+flash used for
+- int vectors     = 140 (0x8C) bytes from 0x0000 to 0x008B = 70 (0x46) instruction words from 0x0000 to 0x0045
+- func pointers   = 26 (0x1A) bytes from 0x008C to 0x00A5
+- constants       = 1710 (0x6AE) bytes from 0x00A6 to 0x0753
+- code            = 5100 (0x13EC) bytes from 0x0754 to 0x1B3F = 2550 (0x9F6) instruction words) from 0x03AA to 0x0D9F
++- user code      : 3416 (0xD58) bytes from 0x0754 to 0x14AB = 1708 (0x6AC) instruction words) from 0x03AA to 0x0A55
++- <library>      : 1684 (0x694) bytes from 0x14AC to 0x1B3F = 842 (0x34A) instruction words) from 0x0A56 to 0x0D9F
+flash usage is 6976 bytes or 10.7%, leaving 58420 bytes (57KB) free
+
+sram size is 4096 bytes (4KB)
+sram used for
+- variables       = 1743 (0x6CF) bytes from 0x0100 to 0x07CE
+- heap, s/w stack = 2323 (0x913) bytes from 0x07CF to 0x10E1
+- h/w stack       = 30 (0x1E) bytes from 0x10E2 to 0x10FF
+
+eeprom size is 2048 bytes (2KB)
+no eeprom area found
+
+
+Areas:
+
+FLASH area "func_lit" used for function pointers
+FLASH area "func_lit" = 26 (0x1A) bytes from 0x008C to 0x00A5 = 13 function pointers
+  no user objects in this area
+
+FLASH area "lit" used for constants
+FLASH area "lit" = 12 (0x0C) bytes from 0x00A6 to 0x00B1
+  no user objects in this area
+
+FLASH area "idata" with init values for data area objects
+FLASH area "idata" = 1698 (0x6A2) bytes from 0x00B2 to 0x0753
+  no user objects in this area
+
+FLASH area "text" used for code
+FLASH area "text" = 5100 (0x13EC) bytes from 0x0754 to 0x1B3F = 2550 (0x9F6) instruction words from 0x03AA to 0x0D9F
+  __start                     =   34 (0x0022) words
+  _exit                       =    1 (0x0001) word
+  _ADC_init                   =   30 (0x001E) words
+  _adc_converter              =   40 (0x0028) words
+  _adc_converter_multiple     =  171 (0x00AB) words
+  _delayms                    =   21 (0x0015) words
+  _port_init                  =   16 (0x0010) words
+  _init_devices               =   41 (0x0029) words
+  _EEPROM_write               =    8 (0x0008) words
+  _EEPROM_read                =    7 (0x0007) words
+  _process                    =   34 (0x0022) words
+  _ProgResponseEnd            =   10 (0x000A) words
+  _DataCMP                    =  241 (0x00F1) words
+  _ProgCommGo                 =  208 (0x00D0) words
+  _ProgComm                   =   41 (0x0029) words
+  _HEXtoUart                  =  271 (0x010F) words
+  _Number                     =  103 (0x0067) words
+  _AD5160_write               =   69 (0x0045) words
+  _main                       =   42 (0x002A) words
+  _baudselect                 =   73 (0x0049) words
+  _uart1_init                 =   44 (0x002C) words
+  _uart1_rx_isr               =  116 (0x0074) words
+  _USART_Transmit_byte        =    7 (0x0007) words
+  _Transmit_arraydata         =   16 (0x0010) words
+  _Transmit_arraydataConst    =   16 (0x0010) words
+  _ProgHelp                   =   33 (0x0021) words
+  _ProgFixture_ID             =    3 (0x0003) words
+  _strlen                     =   12 (0x000C) words
+<library>
+  _strncmp                    =   20 (0x0014) words
+  push_arg4                   =    2 (0x0002) words
+  push_arg2                   =    3 (0x0003) words
+  div32u                      =    2 (0x0002) words
+  mod32u                      =    4 (0x0004) words
+  div32s                      =    2 (0x0002) words
+  mod32s                      =   44 (0x002C) words
+  long_div_prolog             =   19 (0x0013) words
+  long_div_epilog             =   16 (0x0010) words
+  tst_R16_R19                 =    5 (0x0005) words
+  tst_R24_R27                 =    5 (0x0005) words
+  neg_R24_R27                 =    9 (0x0009) words
+  elpm32                      =   20 (0x0014) words
+  empy16s                     =   16 (0x0010) words
+  pop_xgset003C               =    5 (0x0005) words
+  pop_xgsetF0FC               =   11 (0x000B) words
+  push_xgsetF0FC              =    2 (0x0002) words
+  push_xgset30FC              =    2 (0x0002) words
+  push_xgset00FC              =    2 (0x0002) words
+  push_xgset003C              =    5 (0x0005) words
+  push_xgset300C              =    5 (0x0005) words
+  pop_xgset300C               =    5 (0x0005) words
+  push_xgset303C              =    7 (0x0007) words
+  pop_xgset303C               =    7 (0x0007) words
+  neg32                       =    9 (0x0009) words
+  asgnblk                     =   24 (0x0018) words
+  fpsub                       =    2 (0x0002) words
+  fpadd                       =    1 (0x0001) word
+  fpadd_alt                   =  103 (0x0067) words
+  fpadd2                      =   11 (0x000B) words
+  fpint                       =   50 (0x0032) words
+  uint2fp                     =    2 (0x0002) words
+  int2fp                      =    9 (0x0009) words
+  ulong2fp                    =    2 (0x0002) words
+  long2fp                     =   23 (0x0017) words
+  fpdiv1                      =    9 (0x0009) words
+  fpdiv2                      =   10 (0x000A) words
+  fpdiv1x                     =   12 (0x000C) words
+  fpdiv2x                     =  123 (0x007B) words
+  unpacks                     =    8 (0x0008) words
+  tstR16_R19                  =    8 (0x0008) words
+  unpacku                     =   25 (0x0019) words
+  normalize_and_pack          =   53 (0x0035) words
+  pack                        =   16 (0x0010) words
+  saveFPRegs                  =   15 (0x000F) words
+  restoreFPRegs               =   15 (0x000F) words
+  fpmule                      =   83 (0x0053) words
+  fpmule2                     =   11 (0x000B) words
+
+SRAM area "data" with global and static variables initialised explicitly
+SRAM area "data" = 1698 (0x6A2) bytes from 0x0100 to 0x07A1
+  <unnamed>                   =   20 (0x0014) bytes
+  _Help                       =    5 (0x0005) bytes
+  _Fixture_Information        =   20 (0x0014) bytes
+  _Reset_Fixture              =   15 (0x000F) bytes
+  _Code_VER                   =   10 (0x000A) bytes
+  _Open_North_Magnetic_Field  =   26 (0x001A) bytes
+  _Close_North_Magnetic_Field =   27 (0x001B) bytes
+  _Open_South_Magnetic_Field  =   26 (0x001A) bytes
+  _Close_South_Magnetic_Field =   27 (0x001B) bytes
+  _Magnetic_Field_Up          =   18 (0x0012) bytes
+  _Magnetic_Field_Down        =   21 (0x0015) bytes
+  _Set_Magnetic_Field         =   19 (0x0013) bytes
+  _Read_Data                  =   10 (0x000A) bytes
+  _Read_Coil_Current          =   18 (0x0012) bytes
+  _diag_on                    =    8 (0x0008) bytes
+  _diag_off                   =    9 (0x0009) bytes
+  _sim_in                     =    7 (0x0007) bytes
+  _sim_out                    =    8 (0x0008) bytes
+  _SY                         =    4 (0x0004) bytes
+  _error                      =   46 (0x002E) bytes
+  _QT_KEY_flag                =    2 (0x0002) bytes
+  _SIM_KEY                    =    1 (0x0001) byte
+  _AUT_flag                   =    2 (0x0002) bytes
+  _step                       =  244 (0x00F4) bytes
+  _CmdBuffer                  =   64 (0x0040) bytes
+  _CmdBuffer2                 =   64 (0x0040) bytes
+  _CmdBuffer1                 =   64 (0x0040) bytes
+  _CmdBuffer0                 =   64 (0x0040) bytes
+  _Help1                      =   80 (0x0050) bytes
+  _Help2                      =   60 (0x003C) bytes
+  _Help3                      =   70 (0x0046) bytes
+  _Help4                      =   61 (0x003D) bytes
+  _Help5                      =   80 (0x0050) bytes
+  _Help6                      =   80 (0x0050) bytes
+  _Help7                      =   82 (0x0052) bytes
+  _Help8                      =   82 (0x0052) bytes
+  _Help9                      =   78 (0x004E) bytes
+  _Help10                     =   72 (0x0048) bytes
+  _Help11                     =   67 (0x0043) bytes
+  _qt_id                      =   37 (0x0025) bytes
+
+SRAM area "bss" with global and static variables initialised implicitly to 0
+SRAM area "bss" = 45 (0x2D) bytes from 0x07A2 to 0x07CE
+  _Flg_USB_On                 =    1 (0x0001) byte
+  _Flg_MLB_On                 =    1 (0x0001) byte
+  _LED_Time_Flg               =    1 (0x0001) byte
+  _TestRunningFlg             =    1 (0x0001) byte
+  _LockButton_Flg             =    1 (0x0001) byte
+  _AUT_OUT_flag               =    2 (0x0002) bytes
+  _AUT_IN_flag                =    2 (0x0002) bytes
+  _AD5160_Valu                =    1 (0x0001) byte
+  _CountCY                    =    4 (0x0004) bytes
+  _Countkey                   =    4 (0x0004) bytes
+  _key                        =    2 (0x0002) bytes
+  _LED_Time                   =    2 (0x0002) bytes
+  _ADCTem                     =    2 (0x0002) bytes
+  _ControlDataTab             =    6 (0x0006) bytes
+  _Flg_North                  =    1 (0x0001) byte
+  _Flg_South                  =    1 (0x0001) byte
+  _Flg_Uart                   =    1 (0x0001) byte
+  _Freq                       =    2 (0x0002) bytes
+  _Module                     =    1 (0x0001) byte
+  _ReceLen                    =    1 (0x0001) byte
+  _ReceLenCount               =    1 (0x0001) byte
+  _OldReceLen                 =    1 (0x0001) byte
+  _cmd_index0                 =    1 (0x0001) byte
+  _cmd_index                  =    1 (0x0001) byte
+  _receiveover0               =    1 (0x0001) byte
+  _receiveover                =    1 (0x0001) byte
+  _PointReceLen               =    2 (0x0002) bytes
+
+FLASH area "vector" used for interrupt vectors
+FLASH area "vector" = 124 (0x7C) bytes from 0x0000 to 0x007B = 62 (0x3E) instruction words from 0x0000 to 0x003D
+
+<eof>

@@ -1,0 +1,1 @@
+adc.o main.o ak8963.o uart.o AD5660.o twi.o Magnetic_Field.o ADS8320.o ADS1110.o Eeprom.o uAK8963.o AT24C01.o 

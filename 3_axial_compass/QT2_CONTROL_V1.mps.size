@@ -1,0 +1,280 @@
+Map File Summary V3.4.1 for IccV7 AVR
+run at 2017-01-10 10:32:07
+on project "C:\Users\sz-zhangliangxin\Desktop\1\GL_QT2_Control_V1\QT2_CONTROL_V1"
+
+ Please note: If a SRAM variable or FLASH item appears larger than it should be,
+ then almost certainly it is because your program contains unnamed items such as
+ literal strings, e.g. from cstrcpy(s,"abc"), or static variables in system lib
+ as e.g. printf local buffer.
+ The compiler is always right in that cases, all space allocated is really used.
+
+Memory summary:
+
+flash size is 65536 bytes (64KB)
+flash used for
+- int vectors     = 140 (0x8C) bytes from 0x0000 to 0x008B = 70 (0x46) instruction words from 0x0000 to 0x0045
+- func pointers   = 54 (0x36) bytes from 0x008C to 0x00C1
+- constants       = 2982 (0xBA6) bytes from 0x00C2 to 0x0C67
+- code            = 26480 (0x6770) bytes from 0x0C68 to 0x73D7 = 13240 (0x33B8) instruction words) from 0x0634 to 0x39EB
++- user code      : 15050 (0x3ACA) bytes from 0x0C68 to 0x4731 = 7525 (0x1D65) instruction words) from 0x0634 to 0x2398
++- <library>      : 11430 (0x2CA6) bytes from 0x4732 to 0x73D7 = 5715 (0x1653) instruction words) from 0x2399 to 0x39EB
+flash usage is 29656 bytes or 45.3%, leaving 35740 bytes (34KB) free
+
+sram size is 4096 bytes (4KB)
+sram used for
+- variables       = 1680 (0x690) bytes from 0x0100 to 0x078F
+- heap, s/w stack = 2386 (0x952) bytes from 0x0790 to 0x10E1
+- h/w stack       = 30 (0x1E) bytes from 0x10E2 to 0x10FF
+
+eeprom size is 2048 bytes (2KB)
+no eeprom area found
+
+
+Areas:
+(items sorted by name)
+
+FLASH area "func_lit" used for function pointers
+FLASH area "func_lit" = 54 (0x36) bytes from 0x008C to 0x00C1 = 27 function pointers
+  no user objects in this area
+
+FLASH area "lit" used for constants
+FLASH area "lit" = 1611 (0x64B) bytes from 0x00C2 to 0x070C
+  <unnamed>                   =   32 (0x0020) bytes
+  _Alter_Date                 =  102 (0x0066) bytes
+  _Calculate_Fixture_Ratio    =   24 (0x0018) bytes
+  _Close_North_Magnetic_Field =   27 (0x001B) bytes
+  _Close_South_Magnetic_Field =   27 (0x001B) bytes
+  _Code                       =   17 (0x0011) bytes
+  _Code_VER                   =   10 (0x000A) bytes
+  _Data                       =   30 (0x001E) bytes
+  _FW_Version                 =   20 (0x0014) bytes
+  _Fixture_ID                 =   12 (0x000C) bytes
+  _Fixture_Information        =   20 (0x0014) bytes
+  _Fixture_Name               =   19 (0x0013) bytes
+  _Help                       =    5 (0x0005) bytes
+  _Help1                      =   22 (0x0016) bytes
+  _Help10                     =   22 (0x0016) bytes
+  _Help11                     =   27 (0x001B) bytes
+  _Help12                     =   28 (0x001C) bytes
+  _Help13                     =   28 (0x001C) bytes
+  _Help14                     =   26 (0x001A) bytes
+  _Help15                     =   12 (0x000C) bytes
+  _Help16                     =   20 (0x0014) bytes
+  _Help17                     =    7 (0x0007) bytes
+  _Help18                     =   11 (0x000B) bytes
+  _Help19                     =   27 (0x001B) bytes
+  _Help2                      =    7 (0x0007) bytes
+  _Help20                     =   18 (0x0012) bytes
+  _Help21                     =   20 (0x0014) bytes
+  _Help3                      =   16 (0x0010) bytes
+  _Help4                      =   12 (0x000C) bytes
+  _Help5                      =   28 (0x001C) bytes
+  _Help6                      =   29 (0x001D) bytes
+  _Help7                      =   28 (0x001C) bytes
+  _Help8                      =   29 (0x001D) bytes
+  _Help9                      =   20 (0x0014) bytes
+  _Magnetic_Field_Down        =   20 (0x0014) bytes
+  _Magnetic_Field_Up          =   18 (0x0012) bytes
+  _Open_North_Magnetic_Field  =   26 (0x001A) bytes
+  _Open_South_Magnetic_Field  =   26 (0x001A) bytes
+  _Read                       =    5 (0x0005) bytes
+  _Read_Coil_Current          =   18 (0x0012) bytes
+  _Read_Compass_data          =   18 (0x0012) bytes
+  _Read_Data                  =   10 (0x000A) bytes
+  _Reset_Fixture              =   14 (0x000E) bytes
+  _Sample                     =    7 (0x0007) bytes
+  _Sample_1                   =    9 (0x0009) bytes
+  _Sample_magnetic            =   16 (0x0010) bytes
+  _Set_A                      =    6 (0x0006) bytes
+  _Set_B                      =    6 (0x0006) bytes
+  _Set_Coil_Current           =   17 (0x0011) bytes
+  _Set_Current_Offset         =   19 (0x0013) bytes
+  _Set_Fixture_Ratio          =   18 (0x0012) bytes
+  _Shenzhen                   =   23 (0x0017) bytes
+  _Test1                      =    6 (0x0006) bytes
+  _Test2                      =    6 (0x0006) bytes
+  __ctype                     =  498 (0x01F2) bytes
+  _down                       =    5 (0x0005) bytes
+  _qt_id                      =   35 (0x0023) bytes
+  _up                         =    3 (0x0003) bytes
+
+FLASH area "idata" with init values for data area objects
+FLASH area "idata" = 1371 (0x55B) bytes from 0x070D to 0x0C67
+  no user objects in this area
+
+FLASH area "text" used for code
+FLASH area "text" = 26480 (0x6770) bytes from 0x0C68 to 0x73D7 = 13240 (0x33B8) instruction words from 0x0634 to 0x39EB
+  _AD5660Init                 =   16 (0x0010) words
+  _ADC_init                   =   14 (0x000E) words
+  _ADS8320_Smoothing          =   90 (0x005A) words
+  _ADS8320_init               =    8 (0x0008) words
+  _AK8963_Data_Processing     =  236 (0x00EC) words
+  _AK8963_Read                =   24 (0x0018) words
+  _AK8963_ReadByte            =   24 (0x0018) words
+  _AK8963_ReadData            =   56 (0x0038) words
+  _AK8963_Read_Data           =   39 (0x0027) words
+  _AK8963_Smoothing           =  357 (0x0165) words
+  _AK8963_Wirte               =   24 (0x0018) words
+  _AK8963_WriteByte           =   20 (0x0014) words
+  _AK8963_init                =  220 (0x00DC) words
+  _Calculate_Sample_magnetic  =  322 (0x0142) words
+  _Cotrol_Coil_Current        =  119 (0x0077) words
+  _CtoF                       =   30 (0x001E) words
+  _DataCMP                    =  295 (0x0127) words
+  _E24C02_Read_Uint           =   28 (0x001C) words
+  _E24C02_Write_Uint          =   24 (0x0018) words
+  _EEPROM_Init                =   74 (0x004A) words
+  _EEPROM_Read_Uint           =   21 (0x0015) words
+  _EEPROM_Write_Uint          =   20 (0x0014) words
+  _EEPROM_read                =    7 (0x0007) words
+  _EEPROM_write               =    9 (0x0009) words
+  _FloatTohex                 =    9 (0x0009) words
+  _Float_24C02_Read           =   26 (0x001A) words
+  _Float_24C02_write          =   25 (0x0019) words
+  _Float_EEPROM_Read          =   48 (0x0030) words
+  _Float_EEPROM_write         =   46 (0x002E) words
+  _FtoC                       =   28 (0x001C) words
+  _GetAK8963Mag               =   11 (0x000B) words
+  _Key_Control_Down           =  122 (0x007A) words
+  _Key_Control_Up             =  125 (0x007D) words
+  _Key_Pro                    =   86 (0x0056) words
+  _LED_Flash                  =   38 (0x0026) words
+  _Magnetic_Field             =   61 (0x003D) words
+  _ProgComm                   =   47 (0x002F) words
+  _ProgCommGo                 = 1215 (0x04BF) words
+  _ProgFixture_ID             =   15 (0x000F) words
+  _ProgHelp                   =   63 (0x003F) words
+  _ProgResponseEnd            =   10 (0x000A) words
+  _RD_ADS                     =   30 (0x001E) words
+  _Read_ADS8320               =   69 (0x0045) words
+  _Read_Current               =   90 (0x005A) words
+  _Read_NMS                   =  243 (0x00F3) words
+  _Self_test                  =   78 (0x004E) words
+  _StrnCompare                =   86 (0x0056) words
+  _TWI_Delay                  =   43 (0x002B) words
+  _TWI_Read                   =    8 (0x0008) words
+  _TWI_ReceiveByte            =   23 (0x0017) words
+  _TWI_SDA_STATE              =   10 (0x000A) words
+  _TWI_START                  =   10 (0x000A) words
+  _TWI_STOP                   =    8 (0x0008) words
+  _TWI_SendACK                =    8 (0x0008) words
+  _TWI_SendByte               =   30 (0x001E) words
+  _TWI_SendNACK               =    8 (0x0008) words
+  _TWI_Start                  =    9 (0x0009) words
+  _TWI_Stop                   =    4 (0x0004) words
+  _TWI_WaitAck                =   15 (0x000F) words
+  _TWI_Write                  =   15 (0x000F) words
+  _TWI_init                   =   14 (0x000E) words
+  _Transmit_arraydata         =   16 (0x0010) words
+  _Transmit_arraydataConst    =   16 (0x0010) words
+  _USART_Transmit_byte        =    4 (0x0004) words
+  _WaitACK                    =   22 (0x0016) words
+  _Wr_AD5660                  =   83 (0x0053) words
+  _Write_AD5660               =  137 (0x0089) words
+  __print                     = 1230 (0x04CE) words
+  __start                     =   34 (0x0022) words
+  _adc_converter              =   40 (0x0028) words
+  _adc_converter_multiple     =  175 (0x00AF) words
+  _ads1110Config              =   10 (0x000A) words
+  _baudselect                 =   73 (0x0049) words
+  _bsp_InitAK8963             =   16 (0x0010) words
+  _chart                      =   30 (0x001E) words
+  _delay                      =    9 (0x0009) words
+  _delayms                    =   19 (0x0013) words
+  _delayus                    =   17 (0x0011) words
+  _exit                       =    1 (0x0001) word
+  _getNunb                    =   88 (0x0058) words
+  _get_ad_result              =   93 (0x005D) words
+  _i2c_read                   =   25 (0x0019) words
+  _init_devices               =   41 (0x0029) words
+  _main                       =   20 (0x0014) words
+  _port_init                  =   37 (0x0025) words
+  _process                    =   34 (0x0022) words
+  _putchar$device_specific$   =   21 (0x0015) words
+  _rd24c                      =   60 (0x003C) words
+  _uart0_rx_isr               =  115 (0x0073) words
+  _uart1_init                 =   40 (0x0028) words
+  _wt24c                      =  120 (0x0078) words
+  _wt24c_fc                   =   46 (0x002E) words
+  <library>                   = 5715 (0x1653) words
+
+SRAM area "data" with global and static variables initialised explicitly
+SRAM area "data" = 1371 (0x55B) bytes from 0x0100 to 0x065A
+  _CmdBuffer                  =   64 (0x0040) bytes
+  _CmdBuffer0                 =   66 (0x0042) bytes
+  _CmdBuffer1                 =   64 (0x0040) bytes
+  _CmdBuffer2                 =   64 (0x0040) bytes
+  _Flg_Updata                 =  116 (0x0074) bytes
+  _SY                         =    4 (0x0004) bytes
+  _error                      =   46 (0x002E) bytes
+  _step                       =  947 (0x03B3) bytes
+
+SRAM area "bss" with global and static variables initialised implicitly to 0
+SRAM area "bss" = 309 (0x135) bytes from 0x065B to 0x078F
+  _AD_Result                  =   26 (0x001A) bytes
+  _AD_sample                  =    6 (0x0006) bytes
+  _Cont                       =    4 (0x0004) bytes
+  _Count                      =    1 (0x0001) byte
+  _Ex_X_Dat                   =    4 (0x0004) bytes
+  _Ex_Y_Dat                   =    4 (0x0004) bytes
+  _Ex_Z_Dat                   =    4 (0x0004) bytes
+  _FID_Buffer                 =   35 (0x0023) bytes
+  _FastTime_Key               =    1 (0x0001) byte
+  _Flg_CloseMagnetic          =    1 (0x0001) byte
+  _Flg_Uart                   =    1 (0x0001) byte
+  _Freq                       =    2 (0x0002) bytes
+  _Key_Tem                    =    2 (0x0002) bytes
+  _LED_Time                   =    2 (0x0002) bytes
+  _LED_Time_Flg               =    1 (0x0001) byte
+  _Module                     =    1 (0x0001) byte
+  _NMS_sample                 =   12 (0x000C) bytes
+  _North_Float                =    4 (0x0004) bytes
+  _North_X                    =    4 (0x0004) bytes
+  _North_Y                    =    4 (0x0004) bytes
+  _North_Z                    =    4 (0x0004) bytes
+  _OldReceLen                 =    1 (0x0001) byte
+  _PointReceLen               =    2 (0x0002) bytes
+  _ReceLen                    =    1 (0x0001) byte
+  _ReceLenCount               =    1 (0x0001) byte
+  _SampleSave                 =    1 (0x0001) byte
+  _SeptSouthNorth             =    1 (0x0001) byte
+  _South_Float                =    4 (0x0004) bytes
+  _South_X                    =    4 (0x0004) bytes
+  _South_Y                    =    4 (0x0004) bytes
+  _South_Z                    =    4 (0x0004) bytes
+  _Step_Key_Down              =    1 (0x0001) byte
+  _Step_Key_Up                =    1 (0x0001) byte
+  _TableTest                  =    4 (0x0004) bytes
+  _Tem1_float                 =    4 (0x0004) bytes
+  _Tem1_long                  =    4 (0x0004) bytes
+  _Tem2_float                 =    4 (0x0004) bytes
+  _Tem2_long                  =    4 (0x0004) bytes
+  _Tem3_float                 =    4 (0x0004) bytes
+  _Tem_Valu                   =    4 (0x0004) bytes
+  _XSData                     =    4 (0x0004) bytes
+  _X_Calibrate                =    4 (0x0004) bytes
+  _X_Data                     =    2 (0x0002) bytes
+  _YSData                     =    4 (0x0004) bytes
+  _Y_Calibrate                =    4 (0x0004) bytes
+  _Y_Data                     =    2 (0x0002) bytes
+  _ZSData                     =    4 (0x0004) bytes
+  _Z_Calibrate                =    4 (0x0004) bytes
+  _Z_Data                     =    2 (0x0002) bytes
+  __textmode                  =    2 (0x0002) bytes
+  _a                          =   12 (0x000C) bytes
+  _ad5660_wr_buf              =    3 (0x0003) bytes
+  _cmd_index                  =    1 (0x0001) byte
+  _cmd_index0                 =    1 (0x0001) byte
+  _errno                      =    2 (0x0002) bytes
+  _g_tMag                     =   27 (0x001B) bytes
+  _read_buff                  =    4 (0x0004) bytes
+  _receiveover                =    1 (0x0001) byte
+  _receiveover0               =    1 (0x0001) byte
+  _syserr                     =   41 (0x0029) bytes
+  _write_buff                 =    4 (0x0004) bytes
+  _x                          =    4 (0x0004) bytes
+
+FLASH area "vector" used for interrupt vectors
+FLASH area "vector" = 76 (0x4C) bytes from 0x0000 to 0x004B = 38 (0x26) instruction words from 0x0000 to 0x0025
+
+<eof>
