@@ -1,19 +1,17 @@
 
+
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __MAIN_H__
 #define __MAIN_H__
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
-#include "gpio.h"
 
 /* USER CODE BEGIN Includes */
 
 /* USER CODE END Includes */
 
 /* Private define ------------------------------------------------------------*/
-
-
 
 /* ########################## Assert Selection ############################## */
 /**

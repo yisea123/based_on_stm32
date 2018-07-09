@@ -4,34 +4,71 @@
 #include "stm32f4xx_hal.h"
 #include "cmsis_os.h"
 #include "crc.h"
-//#include "dma2d.h"
+#include "dma2d.h"
 //#include "dsihost.h"
 #include "i2c.h"
 //#include "ltdc.h"
 //#include "quadspi.h"
-//#include "sai.h"
-//#include "sdio.h"
+#include "sai.h"
+#include "sdio.h"
 #include "tim.h"
 #include "usart.h"
 //#include "usb_otg.h"
 #include "gpio.h"
 //#include "fmc.h"
 
-/*----------------------------------------------------------------------------*/
+
+/* USER CODE BEGIN Includes */
+#include "task_creat.h"
+#include "bsp_ble.h"
+/* USER CODE END Includes */
+
+/* Private variables ---------------------------------------------------------*/
+
+/* USER CODE BEGIN PV */
+/* Private variables ---------------------------------------------------------*/
+
+/* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 void MX_FREERTOS_Init(void);
-/*----------------------------------------------------------------------------*/
+
+/* USER CODE BEGIN PFP */
+/* Private function prototypes -----------------------------------------------*/
+
+/* USER CODE END PFP */
+
+/* USER CODE BEGIN 0 */
+
+/* USER CODE END 0 */
+
+/**
+  * @brief  The application entry point.
+  *
+  * @retval None
+  */
 int main(void)
 {
+  /* USER CODE BEGIN 1 */
+
+  /* USER CODE END 1 */
+
   /* MCU Configuration----------------------------------------------------------*/
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
 
+  /* USER CODE BEGIN Init */
+
+  /* USER CODE END Init */
+
   /* Configure the system clock */
   SystemClock_Config();
+
+  /* USER CODE BEGIN SysInit */
+  bsp_ble_init();
+  /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
@@ -49,10 +86,15 @@ int main(void)
   MX_USART3_UART_Init();
   MX_USART6_UART_Init();
 //  MX_USB_OTG_FS_HCD_Init();
+  /* USER CODE BEGIN 2 */
+  HAL_UART_SendString(USART3, "--------- system start ---------\r\n", 0);
+  /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */
   MX_FREERTOS_Init();
 
+  Bsp_Task_Init();
+  HAL_UART_SendString(USART3, "kernel start ---------\r\n", 0);
   /* Start scheduler */
   osKernelStart();
   
@@ -65,7 +107,7 @@ int main(void)
   {
 
   /* USER CODE END WHILE */
-	  HAL_UART_SendString(USART3, buff);
+	  HAL_UART_SendString(USART3, buff, strlen(buff));
   /* USER CODE BEGIN 3 */
 
   }
@@ -154,6 +196,10 @@ void SystemClock_Config(void)
   HAL_NVIC_SetPriority(SysTick_IRQn, 15, 0);
 }
 
+/* USER CODE BEGIN 4 */
+
+/* USER CODE END 4 */
+
 /**
   * @brief  Period elapsed callback in non blocking mode
   * @note   This function is called  when TIM6 interrupt took place, inside
@@ -216,4 +262,4 @@ void assert_failed(uint8_t* file, uint32_t line)
   * @}
   */
 
-/*------------------------------- END OF FILE --------------------------------*/
+/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

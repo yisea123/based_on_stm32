@@ -8,7 +8,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
-#include "main.h"
+
 #include "gpio.h"
 
 /* USER CODE BEGIN Includes */
@@ -29,8 +29,8 @@ void MX_USART6_UART_Init(void);
 
 /* USER CODE BEGIN Prototypes */
 
-
-int HAL_UART_SendString(USART_TypeDef* uartHandle, char *str);
+int hal_usart_init(USART_TypeDef * uartHandle, uint32_t baudrate);
+int HAL_UART_SendString(USART_TypeDef* uartHandle, char *str, uint32_t str_length);
 
 /* USER CODE END Prototypes */
 

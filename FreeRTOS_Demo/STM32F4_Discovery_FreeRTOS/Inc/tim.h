@@ -8,7 +8,6 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
-#include "main.h"
 #include "gpio.h"
 
 /* USER CODE BEGIN Includes */
@@ -42,4 +41,4 @@ void MX_TIM1_Init(void);
   * @}
   */
 
- /*------------------------------- END OF FILE --------------------------------*/
+/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

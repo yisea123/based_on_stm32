@@ -8,8 +8,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
-#include "main.h"
-
+#include "gpio.h"
 /* USER CODE BEGIN Includes */
 
 /* USER CODE END Includes */
@@ -35,5 +34,12 @@ void MX_I2C2_Init(void);
 #endif
 #endif /*__ i2c_H */
 
+/**
+  * @}
+  */
 
- /*------------------------------- END OF FILE --------------------------------*/
+/**
+  * @}
+  */
+
+/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

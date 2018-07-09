@@ -40,7 +40,7 @@
  extern "C" {
 #endif
 
-#include "main.h"
+#include "gpio.h"
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 
@@ -74,10 +74,10 @@
 #define HAL_SAI_MODULE_ENABLED
 #define HAL_SD_MODULE_ENABLED
 /* #define HAL_MMC_MODULE_ENABLED   */
-/* #define HAL_SPI_MODULE_ENABLED   */
+#define HAL_SPI_MODULE_ENABLED
 #define HAL_TIM_MODULE_ENABLED
 #define HAL_UART_MODULE_ENABLED
-/* #define HAL_USART_MODULE_ENABLED   */
+#define HAL_USART_MODULE_ENABLED
 /* #define HAL_IRDA_MODULE_ENABLED   */
 /* #define HAL_SMARTCARD_MODULE_ENABLED   */
 /* #define HAL_WWDG_MODULE_ENABLED   */
@@ -357,7 +357,7 @@
 #endif /* HAL_MMC_MODULE_ENABLED */
 
 #ifdef HAL_SPI_MODULE_ENABLED
- #include "stm32f4xx_hal_spi.h"
+ //#include "stm32f4xx_hal_spi.h"
 #endif /* HAL_SPI_MODULE_ENABLED */
 
 #ifdef HAL_TIM_MODULE_ENABLED
@@ -369,7 +369,7 @@
 #endif /* HAL_UART_MODULE_ENABLED */
 
 #ifdef HAL_USART_MODULE_ENABLED
- #include "stm32f4xx_hal_usart.h"
+// #include "stm32f4xx_hal_usart.h"
 #endif /* HAL_USART_MODULE_ENABLED */
 
 #ifdef HAL_IRDA_MODULE_ENABLED
