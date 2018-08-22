@@ -1,3 +1,4 @@
+echo-------------- start clean ------------------------
 del *.bak /s
 del *.ddk /s
 del *.edk /s
@@ -18,6 +19,7 @@ del *.d /s
 
 del *.tra /s
 del *.dep /s           
+echo-------------- clean finished ------------------------
 del JLinkLog.txt /s
 
 del *.iex /s

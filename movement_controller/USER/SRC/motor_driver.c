@@ -352,16 +352,6 @@ ErrorStatus DC_MOTOR_Periph(FunctionalState NewState)
         return SUCCESS;
     }
 }
-// ErrorStatus DC_MOTOR_Param_Set(DC_MOTOR_ControlParamTypeDef *DC_MOTOR_Param)
-// {
-// 	DC_MOTOR_Param ->PWM_CompareMode = TIM_OCMode_PWM2;
-// 	DC_MOTOR_Param ->PWM_DeadTime    = 0;
-// 	DC_MOTOR_Param ->TimerPeriod     = 0;
-// 	DC_MOTOR_Param ->Channel1Pulse   = 0;
-// 	DC_MOTOR_Param ->Channel2Pulse   = 0;
-// 	DC_MOTOR_Param ->TimmerCounter   = 0;
-// 	return (DC_MOTOR_ParamUpdate(DC_MOTOR_Param));
-// }
 
 /**	
  * @brief: function can check Motor is existence or not connect to the control board.
@@ -621,16 +611,7 @@ ErrorStatus DC_MOTOR_Start(uint8_t motorDirection, uint8_t motorSpeedPecent)
 ErrorStatus DC_MOTOR_Shutdown(void)
 {
 	errorTemp = ERROR;
-	// //disable ok
-	// TIM_CCxCmd(TIM1, TIM_Channel_2, TIM_CCx_Disable);
-	// TIM_CCxCmd(TIM1, TIM_Channel_1, TIM_CCx_Disable);
-	// DelayMs(100);
-	// //break
-	// DC_MOTOR_1B_High();
-	// DC_MOTOR_2B_High();
-	// DelayMs(2000);
 
-	// errorTemp = DC_MOTOR_PWM(DISABLE);
 	DC_MOTOR_Stop();
 	errorTemp = DC_MOTOR_Power(DISABLE);
 
@@ -648,100 +629,4 @@ ErrorStatus DC_MOTOR_Shutdown(void)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// /**
-//  * @brief: Check Direction status and change it then update it.
-//  * @param: NULL.
-//  * @return: @refer ErrorStatus.
-//  */
-// void DC_MOTOR_DirectionSet(uint8_t motoDirection)
-// {
-//     GPIO_InitTypeDef    GPIO_InitStructure;
-
-
-// 	/** check DC_MOTOR is in standby status ----------------------------------------------------------------*/
-
-// 	if (Forwared == motoDirection)
-// 	{
-// 		DC_MOTOR_RunStatus.DC_MOTOR_DIR_ReversedStatus = OFF;
-//         DC_MOTOR_RunStatus.DC_MOTOR_DIR_ForwardStatus = ON;
-// 		/*---------------------- redo configurate GPIO -----------------------------------*/        
-// 		GPIO_InitStructure.GPIO_Pin = DC_MOTOR_1A;
-// 		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
-// 		GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-// 		GPIO_Init(PORTA, &GPIO_InitStructure);
-
-// 		GPIO_InitStructure.GPIO_Pin = DC_MOTOR_2A;
-// 		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
-// 		GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-// 		GPIO_Init(PORTA, &GPIO_InitStructure);
-
-// 		GPIO_SetBits(PORTB, DC_MOTOR_2B);
-// 		GPIO_ResetBits(PORTA, DC_MOTOR_1B);
-
-// 		#ifdef AC200_DEBUG
-// 			printf("\r\nmotor dir forward set ...\r\n");
-// 		#endif
-// 	}
-// 	else
-// 	{
-// 		DC_MOTOR_RunStatus.DC_MOTOR_DIR_ForwardStatus = OFF;
-//         DC_MOTOR_RunStatus.DC_MOTOR_DIR_ReversedStatus = ON;
-// 		/*---------------------- redo configurate GPIO -----------------------------------*/
-// 		GPIO_InitStructure.GPIO_Pin = DC_MOTOR_2A;
-// 		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
-// 		GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-// 		GPIO_Init(PORTA, &GPIO_InitStructure);
-
-// 		GPIO_InitStructure.GPIO_Pin = DC_MOTOR_1A;
-// 		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
-// 		GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-// 		GPIO_Init(PORTA, &GPIO_InitStructure);
-
-// 		GPIO_SetBits(PORTA, DC_MOTOR_1B);
-// 		GPIO_ResetBits(PORTB, DC_MOTOR_2B);
-
-// 		#ifdef AC200_DEBUG
-// 			printf("\r\nmotor dir rev set ...\r\n");
-// 		#endif
-// 	}
-// }
 

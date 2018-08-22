@@ -1,19 +1,12 @@
-/**
-  ******************************************************************************
-  * @file    usart.c
 
-  * @author  jiangquan
-  * @version V1.0
-  * @date    30-Oct.-2017
-  * @brief   the file contain the function about set usart wave
-  ******************************************************************************
-*/
 
 #include "usart.h"
 /********************** extern and struct init **************************/
 const uint8_t endMark[3] = {0x0d, 0x0a, '\0'};          //equal to "\r\n"
+UsartBuffTypeDef usartBuff;
+uint8_t usartSendBuff[USART_BUFF_SIZE];
+UsartxRecFlag usartxRecFlag;
 
-/***********************************************************************/
 /********************* usart suppoert printf function *******************/
 
 #pragma import(__use_no_semihosting)
@@ -54,6 +47,7 @@ void USARTx_Configuration(USART_TypeDef * USARTx, uint32_t baudRate)
     USART_InitTypeDef       Usartx_InitStruction;
     NVIC_InitTypeDef        NVIC_InitStruction;
 
+    static int mmm = 0;
     if (USARTx == USART1)
     {
         USART_DeInit(USART1);
@@ -89,6 +83,7 @@ void USARTx_Configuration(USART_TypeDef * USARTx, uint32_t baudRate)
         NVIC_Init(&NVIC_InitStruction);
 
         USART_ITConfig(USART1, USART_IT_RXNE, ENABLE);  //set usart1 interrupt type  USART_IT_IDLE usart line not busy
+        USART_ITConfig(USART1, USART_IT_IDLE, ENABLE);
         USART_Cmd(USART1, ENABLE);
     }
   
@@ -126,20 +121,53 @@ void USARTx_Configuration(USART_TypeDef * USARTx, uint32_t baudRate)
         USART_ITConfig(USART3, USART_IT_RXNE, ENABLE);  //set usart3 interrupt type
         USART_Cmd(USART3, ENABLE);
     }
-    
+    if(0 == mmm)
+    {    
+        memset((void *)&usartBuff, '\0', sizeof((void *)&usartBuff));
+        usartxRecFlag.usart1 = ERROR;
+        usartxRecFlag.usart2 = ERROR;
+        usartxRecFlag.usart3 = ERROR;
+        usartxRecFlag.usart1RecOver = RESET;
+        usartxRecFlag.usart2RecOver = RESET;
+        usartxRecFlag.usart3RecOver = RESET;
+        usartBuff.usart1RecLen = 0;
+        usartBuff.usart2RecLen = 0;
+        usartBuff.usart3RecLen = 0;
+        mmm += 1;
+    }
 }
 /**
  *    [USART1_IRQHandler description]
  */
 void USART1_IRQHandler(void)
 {
-//    uint8_t temp = 0;
-    if (SET == USART_GetFlagStatus(USART1, USART_IT_RXNE)) // received message storage in usart recbuff
+    uint8_t clear = 0;
+    if (SET == USART_GetITStatus(USART1, USART_IT_RXNE)) // received message storage in usart recbuff
     {
-//        temp = USART1->DR;
-//        USART1->DR = temp;
+        usartBuff.Usart1Buff[usartBuff.usart1RecLen++] = USART1->DR;
     }
-    USART_ClearFlag(USART1, USART_IT_RXNE);
+    else if(SET == USART_GetITStatus(USART1, USART_IT_IDLE)) //set usart3 interrupt type)
+    {
+        clear = USART1->SR; //clear USART_IT_IDLE
+        clear= USART1->DR;  //clear USART_IT_IDLE
+        
+        usartBuff.usart1RecLen = usartBuff.usart1RecLen -1;     // 减掉最后一位
+        
+        if(usartBuff.usart1RecLen > 1 && (0x0A == usartBuff.Usart1Buff[usartBuff.usart1RecLen]) && (0x0D == usartBuff.Usart1Buff[usartBuff.usart1RecLen - 1]))
+        {
+
+            usartxRecFlag.usart1RecOver = SET;
+            printf("usart1 rec: %s", usartBuff.Usart1Buff);
+        }
+        else
+        {
+            usartBuff.usart1RecLen = 0;
+            memset(usartBuff.Usart1Buff, '\0', USART_BUFF_SIZE);
+        }
+        usartBuff.usart1RecLen = 0;
+        memset(usartBuff.Usart1Buff, '\0', USART_BUFF_SIZE);
+        
+    }
 }
 
 /**
@@ -147,11 +175,11 @@ void USART1_IRQHandler(void)
  */
 void USART3_IRQHandler(void)
 {
-//    uint8_t temp = 0;
+   uint8_t temp = 0;
     if (SET == USART_GetITStatus(USART3, USART_IT_RXNE))
     {
-//        temp = USART3->DR;
-//        USART3->DR = temp;
+       temp = USART3->DR;
+       USART3->DR = temp;
     }
     USART_ClearFlag(USART3, USART_IT_RXNE);
 }
