@@ -72,27 +72,27 @@ status_enum gpiox_blink(led_color_enum ledx, unsigned int microSeconds)
 {
 	if(green == ledx) {
 		HAL_GPIO_WritePin(LED_Green_Port, LED_Green_Pin, GPIO_PIN_SET);
-		HAL_Delay(microSeconds);
+		Delay_Ms(microSeconds);
 		HAL_GPIO_WritePin(LED_Green_Port, LED_Green_Pin, GPIO_PIN_RESET);
-		HAL_Delay(microSeconds);
+		Delay_Ms(microSeconds);
 
 	} else if(orange == ledx) {
 		HAL_GPIO_WritePin(LED_Orange_Port, LED_Orange_Pin, GPIO_PIN_SET);
-		HAL_Delay(microSeconds);
+		Delay_Ms(microSeconds);
 		HAL_GPIO_WritePin(LED_Orange_Port, LED_Orange_Pin, GPIO_PIN_RESET);
-		HAL_Delay(microSeconds);
+		Delay_Ms(microSeconds);
 
 	} else if (red == ledx) {
 		HAL_GPIO_WritePin(LED_Red_Port, LED_Red_Pin, GPIO_PIN_SET);
-		HAL_Delay(microSeconds);
+		Delay_Ms(microSeconds);
 		HAL_GPIO_WritePin(LED_Red_Port, LED_Red_Pin, GPIO_PIN_RESET);
-		HAL_Delay(microSeconds);
+		Delay_Ms(microSeconds);
 
 	} else if (blue == ledx) {
 		HAL_GPIO_WritePin(LED_Blue_Port, LED_Blue_Pin, GPIO_PIN_SET);
-		HAL_Delay(microSeconds);
+		Delay_Ms(microSeconds);
 		HAL_GPIO_WritePin(LED_Blue_Port, LED_Blue_Pin, GPIO_PIN_RESET);
-		HAL_Delay(microSeconds);
+		Delay_Ms(microSeconds);
 
 	} else {
 		return error;

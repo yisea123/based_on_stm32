@@ -8,8 +8,8 @@
 #ifndef BLINK_H_
 #define BLINK_H_
 
+#include <common.h>
 #include "main.h"
-#include "cmd.h"
 
 
 typedef enum {

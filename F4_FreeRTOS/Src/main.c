@@ -10,15 +10,15 @@
 #include "blink.h"
 #include "usart.h"
 #include "usr_task.h"
-
+#include "i2c.h"
+#include "oled.h"
 CRC_HandleTypeDef hcrc;
 
 DMA2D_HandleTypeDef hdma2d;
 
 DSI_HandleTypeDef hdsi;
 
-I2C_HandleTypeDef hi2c1;
-I2C_HandleTypeDef hi2c2;
+
 
 LTDC_HandleTypeDef hltdc;
 
@@ -42,8 +42,6 @@ static void MX_CRC_Init(void);
 static void MX_DMA2D_Init(void);
 static void MX_DSIHOST_DSI_Init(void);
 static void MX_FMC_Init(void);
-static void MX_I2C1_Init(void);
-static void MX_I2C2_Init(void);
 static void MX_LTDC_Init(void);
 static void MX_QUADSPI_Init(void);
 static void MX_SDIO_SD_Init(void);
@@ -63,6 +61,7 @@ int main(void)
 	/* USER CODE BEGIN SysInit */
 	blink_init();
 	MX_USARTx_Init(USART3, 115200);
+	MX_I2C1_Init(400000);
 	/* USER CODE END SysInit */
 
 	/* Initialize all configured peripherals */
@@ -72,8 +71,6 @@ int main(void)
 	MX_DMA2D_Init();
 	MX_DSIHOST_DSI_Init();
 	MX_FMC_Init();
-	MX_I2C1_Init();
-	MX_I2C2_Init();
 	MX_LTDC_Init();
 	MX_QUADSPI_Init();
 	MX_SDIO_SD_Init();
@@ -81,7 +78,7 @@ int main(void)
 	/* init code for FATFS */
 	MX_FATFS_Init();
 
-
+	oled_power_on();
 
 	Usr_TaskCreate();
 	/* Start scheduler */
@@ -324,73 +321,7 @@ static void MX_DSIHOST_DSI_Init(void)
 
 }
 
-/**
-  * @brief I2C1 Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_I2C1_Init(void)
-{
 
-  /* USER CODE BEGIN I2C1_Init 0 */
-
-  /* USER CODE END I2C1_Init 0 */
-
-  /* USER CODE BEGIN I2C1_Init 1 */
-
-  /* USER CODE END I2C1_Init 1 */
-  hi2c1.Instance = I2C1;
-  hi2c1.Init.ClockSpeed = 100000;
-  hi2c1.Init.DutyCycle = I2C_DUTYCYCLE_2;
-  hi2c1.Init.OwnAddress1 = 0;
-  hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
-  hi2c1.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
-  hi2c1.Init.OwnAddress2 = 0;
-  hi2c1.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
-  hi2c1.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
-  if (HAL_I2C_Init(&hi2c1) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN I2C1_Init 2 */
-
-  /* USER CODE END I2C1_Init 2 */
-
-}
-
-/**
-  * @brief I2C2 Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_I2C2_Init(void)
-{
-
-  /* USER CODE BEGIN I2C2_Init 0 */
-
-  /* USER CODE END I2C2_Init 0 */
-
-  /* USER CODE BEGIN I2C2_Init 1 */
-
-  /* USER CODE END I2C2_Init 1 */
-  hi2c2.Instance = I2C2;
-  hi2c2.Init.ClockSpeed = 100000;
-  hi2c2.Init.DutyCycle = I2C_DUTYCYCLE_2;
-  hi2c2.Init.OwnAddress1 = 0;
-  hi2c2.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
-  hi2c2.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
-  hi2c2.Init.OwnAddress2 = 0;
-  hi2c2.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
-  hi2c2.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
-  if (HAL_I2C_Init(&hi2c2) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN I2C2_Init 2 */
-
-  /* USER CODE END I2C2_Init 2 */
-
-}
 
 /**
   * @brief LTDC Initialization Function
@@ -732,10 +663,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   */
 void Error_Handler(void)
 {
-  /* USER CODE BEGIN Error_Handler_Debug */
-  /* User can add his own implementation to report the HAL error return state */
 
-  /* USER CODE END Error_Handler_Debug */
 }
 
 #ifdef  USE_FULL_ASSERT

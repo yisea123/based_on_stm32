@@ -179,11 +179,16 @@ void Display_Task_Entry(void const * argument)
 	{
 		if(0 == display_loop % 2) {
 			HAL_GPIO_WritePin(LED_Orange_Port, LED_Orange_Pin, GPIO_PIN_RESET);
-			osDelay(1200);
+			osDelay(300);
 		} else {
 			HAL_GPIO_WritePin(LED_Orange_Port, LED_Orange_Pin, GPIO_PIN_SET);
-			osDelay(1200);
+			osDelay(300);
 		}
+		oled_test();
+		oled_fill(0xf0);
+		Delay_Ms(2000);
+		oled_fill(0x0f);
+		Delay_Ms(2000);
 	}
   /* USER CODE END Display_Task_Entry */
 }
