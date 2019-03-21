@@ -1,4 +1,3 @@
-
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __MAIN_H
 #define __MAIN_H
@@ -10,9 +9,9 @@ extern "C" {
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
 
-
 /* Exported functions prototypes ---------------------------------------------*/
-void Error_Handler(void);
+void
+Error_Handler (void);
 
 /* USER CODE BEGIN EFP */
 
@@ -67,8 +66,6 @@ void Error_Handler(void);
 #define D31_GPIO_Port                       GPIOI
 #define D28_Pin                             GPIO_PIN_6
 #define D28_GPIO_Port                       GPIOI
-
-
 
 #define uSD_CMD_Pin GPIO_PIN_2
 #define uSD_CMD_GPIO_Port GPIOD

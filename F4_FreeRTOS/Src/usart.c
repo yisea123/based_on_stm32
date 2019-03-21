@@ -42,7 +42,7 @@ void MX_USARTx_Init(USART_TypeDef * USARTx, uint32_t baudrate)
 			Error_Handler();
 		}
 	}
-	uint8_t buff[]="--------- system start ---------\r\n";
+	uint8_t buff[]="--------- usart init success ---------\r\n";
 	uint16_t length = sizeof(buff)/sizeof(uint8_t) - 1;
 	HAL_UART_Transmit(&huart3, buff, length, 100);
 }
@@ -119,4 +119,25 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* huart)
 		*/
 		HAL_GPIO_DeInit(USART6_Port, USART6_TX_Pin|USART6_RX_Pin);
 	}
+}
+
+int uasrtx_send_string(UART_HandleTypeDef * huart, uint8_t *str, uint16_t len)
+{
+	if(osOK != osThreadSuspendAll()) {
+		osThreadYield();
+		return -1;
+	}
+	if(huart->Instance == USART3) {
+		HAL_UART_Transmit(&huart3, str, len, 500);
+	} else if(huart->Instance == USART6) {
+		HAL_UART_Transmit(&huart6, str, len, 500);
+	}
+	/* The operation is complete.  Restart the RTOS kernel.  We want to force a context
+	 * switch - but there is no point if resuming the scheduler
+	 * caused a context switch already. */
+	if(osOK != osThreadResumeAll()) {
+		osThreadYield();		// force switch
+		return -1;
+	}
+	return 0;
 }

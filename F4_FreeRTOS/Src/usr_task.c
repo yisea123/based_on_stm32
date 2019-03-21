@@ -10,7 +10,7 @@ void Usr_TaskCreate(void)
 {
 	/* Create the thread(s) */
 	/* definition and creation of defaultTask */
-	osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 4096);
+	osThreadDef(defaultTask, StartDefaultTask, osPriorityBelowNormal, 0, 128);
 	defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
 	/* definition and creation of LED_Blink */
@@ -18,16 +18,20 @@ void Usr_TaskCreate(void)
 	LED_BlinkHandle = osThreadCreate(osThread(LED_Blink), NULL);
 
 	/* definition and creation of BLE_Task */
-	osThreadDef(BLE_Task, BLE_Task_Entry, osPriorityAboveNormal, 0, 128);
+	osThreadDef(BLE_Task, BLE_Task_Entry, osPriorityNormal, 0, 128);
 	BLE_TaskHandle = osThreadCreate(osThread(BLE_Task), NULL);
 
 	/* definition and creation of USART_Task */
-	osThreadDef(USART_Task, USART_Task_Entry, osPriorityNormal, 0, 128);
+	osThreadDef(USART_Task, USART_Task_Entry, osPriorityNormal, 0, 512);
 	USART_TaskHandle = osThreadCreate(osThread(USART_Task), NULL);
 
 	/* definition and creation of Display_Task */
-	osThreadDef(Display_Task, Display_Task_Entry, osPriorityHigh, 0, 128);
-	Display_TaskHandle = osThreadCreate(osThread(Display_Task), NULL);
+	osThreadDef(Display_Task, Display_Task_Entry, osPriorityAboveNormal, 0, 512);
+	Display_Handle = osThreadCreate(osThread(Display_Task), NULL);
+
+	/* definition and creation of W5500 */
+	osThreadDef(W5500_Task, W5500_Task_Entry, osPriorityNormal, 0, 512);
+	W5500_Handle = osThreadCreate(osThread(W5500_Task), NULL);
 }
 
 
@@ -49,22 +53,10 @@ void StartDefaultTask(void const * argument)
 			 osDelay(300);
 		} else {
 			HAL_GPIO_WritePin(LED_Red_Port, LED_Red_Pin, GPIO_PIN_RESET);
-//			osDelay(300);
-			taskYIELD();
+			osDelay(300);
+//			taskYIELD();
 		}
 		default_loop++;
-		// get task list
-		uint8_t taskListBuff[1024]="-------------------------------------------------\r\n";
-		uint16_t length = sizeof(taskListBuff) / sizeof(uint8_t) - 1;
-		HAL_UART_Transmit(&huart3, taskListBuff, length, 100);
-		memset(taskListBuff, 0, sizeof(taskListBuff));
-		vTaskList(taskListBuff);
-		length = sizeof(taskListBuff) / sizeof(uint8_t) - 1;
-		HAL_UART_Transmit(&huart3, taskListBuff, length, 100);
-		memset(taskListBuff, 0, sizeof(taskListBuff));
-		strcpy(taskListBuff, &("-------------------------------------------------\r\n"));
-		length = sizeof(taskListBuff) / sizeof(uint8_t) - 1;
-		HAL_UART_Transmit(&huart3, taskListBuff, length, 100);
 	}
   /* USER CODE END 5 */
 }
@@ -140,25 +132,31 @@ void USART_Task_Entry(void const * argument)
 {
   /* USER CODE BEGIN USART_Task_Entry */
   /* Infinite loop */
-	static uint32_t usart_loop = 0;
+	static uint8_t usart_loop = 0;
+	uint8_t buff[128]="-------------------------------------------------\r\n";
+	uint16_t buff_len = sizeof(buff)/sizeof(uint8_t) - 1;;
+
+	uint8_t taskListBuff[512] = {'\0'};
+	uint16_t taskListBuff_len = sizeof(buff)/sizeof(uint8_t) - 1;
 	for(;;)
 	{
 		if(0 == usart_loop % 2 ) {
-			HAL_GPIO_WritePin(LED_Orange_Port, LED_Orange_Pin, GPIO_PIN_SET);
-//			osDelay(300);
+			gpiox_on_off(blue, on);
+			// osDelay(300);
 			taskYIELD();
 		} else {
-			HAL_GPIO_WritePin(LED_Orange_Port, LED_Orange_Pin, GPIO_PIN_RESET);
+			gpiox_on_off(blue, off);
 			osDelay(300);
 		}
 		usart_loop++;
-		uint8_t buff[]="-------> tick: ";
-		uint16_t length = sizeof(buff)/sizeof(uint8_t) - 1;
-		HAL_UART_Transmit(&huart3, buff, length, 100);
-		HAL_UART_Transmit(&huart3, &usart_loop, 1, 100);
-		uint8_t buff2[]="\r\n";
-		length = sizeof(buff2)/sizeof(uint8_t) - 1;
-		HAL_UART_Transmit(&huart3, buff2, length, 100);
+
+	//		// get task list
+		osThreadList(taskListBuff);
+		taskListBuff_len = sizeof(taskListBuff)/sizeof(uint8_t) - 1;;
+		uasrtx_send_string(&huart3, taskListBuff, taskListBuff_len);
+		memset(taskListBuff, '\0', sizeof(taskListBuff));
+		uasrtx_send_string(&huart3, buff, buff_len);
+		osDelay(2000);
 	}
   /* USER CODE END USART_Task_Entry */
 }
@@ -178,17 +176,32 @@ void Display_Task_Entry(void const * argument)
 	for(;;)
 	{
 		if(0 == display_loop % 2) {
-			HAL_GPIO_WritePin(LED_Orange_Port, LED_Orange_Pin, GPIO_PIN_RESET);
+			gpiox_on_off(orange, on);
 			osDelay(300);
+			osThreadYield();
 		} else {
-			HAL_GPIO_WritePin(LED_Orange_Port, LED_Orange_Pin, GPIO_PIN_SET);
+			gpiox_on_off(orange, off);
 			osDelay(300);
 		}
-		oled_test();
-		oled_fill(0xf0);
-		Delay_Ms(2000);
-		oled_fill(0x0f);
-		Delay_Ms(2000);
+//		oled_test();
+//		oled_fill(0xf0);
+//		osDelay(2000);
 	}
   /* USER CODE END Display_Task_Entry */
+}
+
+void W5500_Task_Entry(void const * argument)
+{
+	static int w5500_loop = 0;
+	for(;;)
+	{
+		if(0 == w5500_loop % 2 ) {
+			gpiox_on_off(red, on);
+			osDelay(500);
+		} else {
+			gpiox_on_off(red, off);
+			osDelay(500);
+		}
+		w5500_loop++;
+	}
 }
