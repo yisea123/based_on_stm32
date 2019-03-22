@@ -11,7 +11,7 @@
 #include "usr_task.h"
 #include "i2c.h"
 #include "oled.h"
-#include "w5500_driver.h"
+#include "w5500_spi_driver.h"
 
 CRC_HandleTypeDef hcrc;
 

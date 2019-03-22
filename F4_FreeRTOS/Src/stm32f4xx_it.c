@@ -37,7 +37,7 @@
 #include "main.h"
 #include "stm32f4xx_it.h"
 #include "cmsis_os.h"
-#include "w5500_driver.h"
+#include "w5500_spi_driver.h"
 
 extern DMA_HandleTypeDef hdma_i2c1_rx;
 extern DMA_HandleTypeDef hdma_i2c1_tx;
