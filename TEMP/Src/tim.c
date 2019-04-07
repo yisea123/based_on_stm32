@@ -6,7 +6,7 @@
   ******************************************************************************
   ** This notice applies to any and all portions of this file
   * that are not between comment pairs USER CODE BEGIN and
-  * USER CODE END. Other portions of this file, whether 
+  * USER CODE END. Other portions of this file, whether
   * inserted by the user or by software development tools
   * are owned by their respective copyright owners.
   *
@@ -204,12 +204,13 @@ void HAL_TIM_MspPostInit(TIM_HandleTypeDef* timHandle)
 
   /* USER CODE END TIM1_MspPostInit 0 */
     __HAL_RCC_GPIOA_CLK_ENABLE();
-    /**TIM1 GPIO Configuration    
+    /**TIM1 GPIO Configuration
     PA8     ------> TIM1_CH1
     PA9     ------> TIM1_CH2
-    PA10     ------> TIM1_CH3 
+    PA10     ------> TIM1_CH3
     */
-    GPIO_InitStruct.Pin = TIM1_CH1_Pin|TIM1_CH2_Pin|TIM1_CH3_Pin;
+		GPIO_InitStruct.Pin = LED3_BLUE_TIM1_CH1_Pin | LED3_GREEN_TIM1_CH2_Pin
+						| LED3_RED_TIM1_CH3_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_MEDIUM;
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
@@ -223,10 +224,10 @@ void HAL_TIM_MspPostInit(TIM_HandleTypeDef* timHandle)
   /* USER CODE BEGIN TIM3_MspPostInit 0 */
 
   /* USER CODE END TIM3_MspPostInit 0 */
-  
+
     __HAL_RCC_GPIOA_CLK_ENABLE();
-    /**TIM3 GPIO Configuration    
-    PA6     ------> TIM3_CH1 
+    /**TIM3 GPIO Configuration
+    PA6     ------> TIM3_CH1
     */
     GPIO_InitStruct.Pin = TIM3_CH1_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
@@ -271,7 +272,7 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* tim_baseHandle)
 
   /* USER CODE END TIM3_MspDeInit 1 */
   }
-} 
+}
 
 /* USER CODE BEGIN 1 */
 

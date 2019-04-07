@@ -7,7 +7,7 @@
   ******************************************************************************
   ** This notice applies to any and all portions of this file
   * that are not between comment pairs USER CODE BEGIN and
-  * USER CODE END. Other portions of this file, whether 
+  * USER CODE END. Other portions of this file, whether
   * inserted by the user or by software development tools
   * are owned by their respective copyright owners.
   *
@@ -52,7 +52,7 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "gloable_cmd.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -78,22 +78,16 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define ADC1_IN0_Pin GPIO_PIN_0
-#define ADC1_IN0_GPIO_Port GPIOA
-#define ADC1_IN1_Pin GPIO_PIN_1
-#define ADC1_IN1_GPIO_Port GPIOA
-#define TIM3_CH1_Pin GPIO_PIN_6
-#define TIM3_CH1_GPIO_Port GPIOA
-#define TRIGGER1_Pin GPIO_PIN_11
-#define TRIGGER1_GPIO_Port GPIOB
-#define TIM1_CH1_Pin GPIO_PIN_8
-#define TIM1_CH1_GPIO_Port GPIOA
-#define TIM1_CH2_Pin GPIO_PIN_9
-#define TIM1_CH2_GPIO_Port GPIOA
-#define TIM1_CH3_Pin GPIO_PIN_10
-#define TIM1_CH3_GPIO_Port GPIOA
-#define TRIGGER2_Pin GPIO_PIN_8
-#define TRIGGER2_GPIO_Port GPIOB
+#define ADC1_IN0_Pin 			GPIO_PIN_0
+#define ADC1_IN0_GPIO_Port 		GPIOA
+#define ADC1_IN1_Pin 			GPIO_PIN_1
+#define ADC1_IN1_GPIO_Port 		GPIOA
+#define TIM3_CH1_Pin 			GPIO_PIN_6
+#define TIM3_CH1_GPIO_Port 		GPIOA
+
+
+ErrorStatus
+SelfCheck (void);
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
