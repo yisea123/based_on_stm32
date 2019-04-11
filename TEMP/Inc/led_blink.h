@@ -44,33 +44,14 @@ typedef enum {
 #define LED3_RED_TIM1_CH3_Pin 				GPIO_PIN_10
 #define LED3_PORT 							GPIOA
 
-void
-LEDx_Set (led_list LEDx, led_color color, gpio_status status);
+void LEDx_Set(led_list LEDx, led_color color, gpio_status status);
 
-void
-blink_init (void);
-void
-blink_standby (void);
-void
-blink_runing (void);
-void
-blink_overheat (void);
-void
-blink_self_check_pass (void);
-void
-blink_self_check_error (void);
-void
-blink_pwr_voltage_error (void);
-
-
-
-
-
-
-
-
-
-
-
+void blink_init(void);
+void blink_standby(void);
+void blink_runing(void);
+void blink_overheat(void);
+void blink_self_check_pass(void);
+void blink_self_check_error(void);
+void blink_pwr_voltage_error(void);
 
 #endif /* LED_BLINK_H_ */

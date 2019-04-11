@@ -10,6 +10,7 @@
 
 #include "main.h"
 #include "i2c.h"
+#include "global_cmd.h"
 
 /** 12bit temperatures -----------------------------------------------------*/
 #define temp_128_degree				0x7ff
@@ -33,12 +34,15 @@ typedef enum {
 #define rate_4Hz	2		// CR1 = 1, CR0 = 0
 #define rate_8Hz	3		// CR1 = 1, CR0 = 1
 
-#define TMP_CONTROL_REG			0x00
-#define temp_reg_read_only 		(TMP_CONTROL_REG | (0 << 0))			// P1 = 0, P0 = 0
-#define config_reg				(TMP_CONTROL_REG | (1 << 0))			// P1 = 0, P0 = 1
-#define temp_low_reg			(TMP_CONTROL_REG | (2 << 0))			// P1 = 1, P0 = 0
-#define temp_high_reg			(TMP_CONTROL_REG | (3 << 0))			// P1 = 1, P0 = 1
 #define chip_address			0x90
+
+typedef enum {
+	TMP_CONTROL_REG = 0x00, temp_reg_read_only = (TMP_CONTROL_REG | (0 << 0)), // P1 = 0, P0 = 0
+	config_reg = (TMP_CONTROL_REG | (1 << 0)),			// P1 = 0, P0 = 1
+	temp_low_reg = (TMP_CONTROL_REG | (2 << 0)),		// P1 = 1, P0 = 0
+	temp_high_reg = (TMP_CONTROL_REG | (3 << 0)),		// P1 = 1, P0 = 1
+
+} tmp112_address;
 
 ErrorStatus
 tmp112_init(void);

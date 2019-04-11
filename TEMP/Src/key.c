@@ -6,8 +6,8 @@
  */
 
 
+#include <global_cmd.h>
 #include "key.h"
-#include "gloable_cmd.h"
 
 void
 key_init (void)

@@ -52,7 +52,7 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "gloable_cmd.h"
+#include <global_cmd.h>
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
