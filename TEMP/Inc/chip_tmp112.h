@@ -35,19 +35,18 @@ typedef enum {
 #define rate_8Hz	3		// CR1 = 1, CR0 = 1
 
 #define chip_address			0x90
+#define chip_read_addr			(chip_address | (1 << 0))
 
 typedef enum {
-	TMP_CONTROL_REG = 0x00, temp_reg_read_only = (TMP_CONTROL_REG | (0 << 0)), // P1 = 0, P0 = 0
-	config_reg = (TMP_CONTROL_REG | (1 << 0)),			// P1 = 0, P0 = 1
-	temp_low_reg = (TMP_CONTROL_REG | (2 << 0)),		// P1 = 1, P0 = 0
-	temp_high_reg = (TMP_CONTROL_REG | (3 << 0)),		// P1 = 1, P0 = 1
+	tmp_control_reg = 0x00, temp_reg_read_only = (tmp_control_reg | (0 << 0)), // P1 = 0, P0 = 0
+	config_reg = (tmp_control_reg | (1 << 0)),			// P1 = 0, P0 = 1
+	temp_low_reg = (tmp_control_reg | (2 << 0)),		// P1 = 1, P0 = 0
+	temp_high_reg = (tmp_control_reg | (3 << 0)),		// P1 = 1, P0 = 1
 
 } tmp112_address;
 
-ErrorStatus
-tmp112_init(void);
+ErrorStatus tmp112_init(void);
 
-int
-temp_transfer(unsigned int degree);
+int temp_transfer(unsigned int degree);
 
 #endif /* CHIP_TMP112_H_ */
