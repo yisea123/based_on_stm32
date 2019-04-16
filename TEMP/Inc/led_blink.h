@@ -47,11 +47,13 @@ typedef enum {
 void LEDx_Set(led_list LEDx, led_color color, gpio_status status);
 
 void blink_init(void);
+void blink_statu_reset(gpio_status status);
 void blink_standby(void);
 void blink_runing(void);
 void blink_overheat(void);
 void blink_self_check_pass(void);
 void blink_self_check_error(void);
 void blink_pwr_voltage_error(void);
+void blink_key_scan(void);
 
 #endif /* LED_BLINK_H_ */

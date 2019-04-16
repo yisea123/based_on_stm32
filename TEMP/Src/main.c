@@ -45,6 +45,8 @@
 #include "dma.h"
 #include "i2c.h"
 #include "led_blink.h"
+#include "coil.h"
+#include "tim.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -111,22 +113,38 @@ int main(void)
 
 	/* Initialize all configured peripherals */
 	key_init();
-	blink_init();
 	MX_DMA_Init();
 	MX_TIM1_Init();
 	MX_ADC1_Init();
 	MX_I2C1_Init();
-	MX_TIM3_Init();
+	blink_init();
+	// MX_TIM3_Init();
 	/* USER CODE BEGIN 2 */
 
 	/* USER CODE END 2 */
 
 	/* Infinite loop */
 	/* USER CODE BEGIN WHILE */
-	while(1) {
-		/* USER CODE END WHILE */
+	SelfCheck();
+	enable_key_trigger();
 
-		/* USER CODE BEGIN 3 */
+	while (1) {
+		switch(key_triggered_times) {
+		case 1:
+			coil_power(on);
+			break;
+		case 2:
+			coil_keep_warm();
+			break;
+		case 3:
+			coil_power(off);
+			break;
+		default:
+			key_triggered_times = 0;
+			standby_mark = on;
+			break;
+		}
+		blink_standby();
 	}
 	/* USER CODE END 3 */
 }
@@ -156,7 +174,7 @@ void SystemClock_Config(void)
 	/**Initializes the CPU, AHB and APB busses clocks
 	 */
 	RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK
-	        | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
+			| RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
 	RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
 	RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
 	RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
@@ -173,7 +191,7 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-ErrorStatus SelfCheck(void)
+void SelfCheck(void)
 {
 	/*TODO*/
 	/*******************************************
@@ -183,6 +201,8 @@ ErrorStatus SelfCheck(void)
 	 * led check
 	 *
 	 *******************************************/
+	blink_self_check_pass();
+	standby_mark = on;
 }
 /* USER CODE END 4 */
 

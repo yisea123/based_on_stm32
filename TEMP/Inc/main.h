@@ -86,8 +86,7 @@ void Error_Handler(void);
 #define TIM3_CH1_GPIO_Port 		GPIOA
 
 
-ErrorStatus
-SelfCheck (void);
+void SelfCheck(void);
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

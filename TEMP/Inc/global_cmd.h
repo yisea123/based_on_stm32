@@ -9,7 +9,7 @@
 #define GLOBAL_CMD_H_
 
 typedef enum {
-	un_trigger = 0, triggered = !un_trigger,
+	untrigger = 0, triggered = !untrigger,
 } trigger_enum;
 
 typedef enum {
@@ -29,5 +29,8 @@ unsigned int over_heart_mark;
 unsigned int self_check_mark;
 unsigned int error_self_check_mark;
 unsigned int trigger_status;
+unsigned int key_triggered_times;
+
+#define WARM_TMEP		40
 
 #endif /* GLOBAL_CMD_H_ */

@@ -11,6 +11,7 @@
 #include "main.h"
 #include "i2c.h"
 #include "global_cmd.h"
+#include "stm32f1xx_hal.h"
 
 /** 12bit temperatures -----------------------------------------------------*/
 #define temp_128_degree				0x7ff
@@ -37,16 +38,16 @@ typedef enum {
 #define chip_address			0x90
 #define chip_read_addr			(chip_address | (1 << 0))
 
-typedef enum {
-	tmp_control_reg = 0x00, temp_reg_read_only = (tmp_control_reg | (0 << 0)), // P1 = 0, P0 = 0
-	config_reg = (tmp_control_reg | (1 << 0)),			// P1 = 0, P0 = 1
-	temp_low_reg = (tmp_control_reg | (2 << 0)),		// P1 = 1, P0 = 0
-	temp_high_reg = (tmp_control_reg | (3 << 0)),		// P1 = 1, P0 = 1
-
-} tmp112_address;
+#define tmp_control_reg  		0x00
+#define temp_reg_read_only 		(tmp_control_reg | (0 << 0)) 	// P1 = 0, P0 = 0
+#define config_reg  			(tmp_control_reg | (1 << 0)),				// P1 = 0, P0 = 1
+#define temp_low_reg  			(tmp_control_reg | (2 << 0))			// P1 = 1, P0 = 0
+#define temp_high_reg  			(tmp_control_reg | (3 << 0))			// P1 = 1, P0 = 1
 
 ErrorStatus tmp112_init(void);
 
 int temp_transfer(unsigned int degree);
+void temp_config(uint8_t addr, uint8_t data);
+uint16_t temp_read_temp(unsigned char address);
 
 #endif /* CHIP_TMP112_H_ */
