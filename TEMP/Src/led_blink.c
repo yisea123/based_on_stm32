@@ -82,26 +82,43 @@ void blink_statu_reset(gpio_status status)
 
 void blink_standby(void)
 {
-	blink_statu_reset(on);
 	if (on == standby_mark) {
-		LEDx_Set(led2, led3_green, off);
-		LEDx_Set(led2, led3_red, off);
-		HAL_Delay(300);
-		LEDx_Set(led2, led3_green, on);
-		LEDx_Set(led2, led3_red, on);
-		HAL_Delay(300);
+		blink_statu_reset(on);
+		HAL_Delay(200);
+		LEDx_Set(led2, led2_green, off);
+		LEDx_Set(led2, led2_red, off);
+		HAL_Delay(200);
+		LEDx_Set(led2, led2_green, on);
+		LEDx_Set(led2, led2_red, on);
+		HAL_Delay(200);
 	}
 }
 
-void blink_runing(void)
+void blink_keep_warming(void)
 {
 	blink_statu_reset(on);
+	HAL_Delay(100);
 	LEDx_Set(led1, led1_green, off);
-	HAL_Delay(500);
+	HAL_Delay(100);
 	LEDx_Set(led2, led2_green, off);
-	HAL_Delay(500);
+	HAL_Delay(100);
 	LEDx_Set(led3, led3_green, off);
-	HAL_Delay(500);
+	HAL_Delay(100);
+}
+
+void blink_heatting(gpio_status status)
+{
+	blink_statu_reset(on);
+	HAL_Delay(100);
+	LEDx_Set(led1, led1_green, !status);
+	LEDx_Set(led1, led1_red, !status);
+	HAL_Delay(100);
+	LEDx_Set(led2, led2_green, !status);
+	LEDx_Set(led2, led2_red, !status);
+	HAL_Delay(100);
+	LEDx_Set(led3, led3_green, !status);
+	LEDx_Set(led3, led3_red, !status);
+	HAL_Delay(100);
 }
 
 void blink_overheat(void)
@@ -123,9 +140,9 @@ void blink_overheat(void)
 void blink_self_check_pass(void)
 {
 	blink_statu_reset(off);
-	HAL_Delay(300);
+	HAL_Delay(100);
 	blink_statu_reset(on);
-	HAL_Delay(300);
+	HAL_Delay(100);
 }
 
 void blink_self_check_error(void)
@@ -139,10 +156,3 @@ void blink_self_check_error(void)
 	blink_statu_reset(on);
 }
 
-void blink_key_scan(void)
-{
-	LEDx_Set(led2, led2_green, on);
-	HAL_Delay(2000);
-	LEDx_Set(led2, led2_green, off);
-	HAL_Delay(2000);
-}

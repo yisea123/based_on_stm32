@@ -19,6 +19,6 @@
 
 void coil_init(void);
 void coil_power(gpio_status status);
-void coil_keep_warm(void);
+void coil_keep_warm(gpio_status status);
 
 #endif /* COIL_H_ */

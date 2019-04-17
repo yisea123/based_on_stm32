@@ -78,17 +78,15 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define ADC1_IN0_Pin 			GPIO_PIN_0
-#define ADC1_IN0_GPIO_Port 		GPIOA
-#define ADC1_IN1_Pin 			GPIO_PIN_1
-#define ADC1_IN1_GPIO_Port 		GPIOA
-#define TIM3_CH1_Pin 			GPIO_PIN_6
-#define TIM3_CH1_GPIO_Port 		GPIOA
 
 
-void SelfCheck(void);
+//#define TRIGGER1_Pin GPIO_PIN_11
+//#define TRIGGER1_GPIO_Port GPIOB
+
+//#define TRIGGER2_Pin GPIO_PIN_8
+//#define TRIGGER2_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
-
+void SelfCheck(void);
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

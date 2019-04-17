@@ -45,7 +45,6 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "led_blink.h"
 
 /* USER CODE BEGIN Includes */
 
@@ -55,7 +54,15 @@ extern TIM_HandleTypeDef htim1;
 extern TIM_HandleTypeDef htim3;
 
 /* USER CODE BEGIN Private defines */
+#define TIM1_CH1_Pin GPIO_PIN_8
+#define TIM1_CH1_GPIO_Port GPIOA
+#define TIM1_CH2_Pin GPIO_PIN_9
+#define TIM1_CH2_GPIO_Port GPIOA
+#define TIM1_CH3_Pin GPIO_PIN_10
+#define TIM1_CH3_GPIO_Port GPIOA
 
+#define TIM3_CH1_Pin GPIO_PIN_6
+#define TIM3_CH1_GPIO_Port GPIOA
 /* USER CODE END Private defines */
 
 void MX_TIM1_Init(void);

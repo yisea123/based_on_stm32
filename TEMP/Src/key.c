@@ -27,8 +27,8 @@ void key_init(void)
 
 void key_nvic_set(void)
 {
-	HAL_NVIC_SetPriority(EXTI9_5_IRQn, 0, 0);
-	HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 1);
+	HAL_NVIC_SetPriority(EXTI9_5_IRQn, 0, 1);
+	HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 2);
 
 }
 
@@ -51,7 +51,6 @@ void EXTI15_10_IRQHandler(void)
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-	 HAL_Delay(100);
 	switch (GPIO_Pin) {
 	case TRIGGER1_Pin:
 		if (0 == HAL_GPIO_ReadPin( TRIGGER_PORT, TRIGGER1_Pin)) {

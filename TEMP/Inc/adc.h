@@ -47,7 +47,10 @@
 #include "main.h"
 
 /* USER CODE BEGIN Includes */
-
+ #define ADC1_IN0_Pin GPIO_PIN_0
+ #define ADC1_IN0_GPIO_Port GPIOA
+ #define ADC1_IN1_Pin GPIO_PIN_1
+ #define ADC1_IN1_GPIO_Port GPIOA
 /* USER CODE END Includes */
 
 extern ADC_HandleTypeDef hadc1;

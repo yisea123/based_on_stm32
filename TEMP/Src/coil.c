@@ -28,12 +28,12 @@ void coil_init(void)
 void coil_power(gpio_status status)
 {
 	HAL_GPIO_WritePin(COIL_CTRL_PORT, COIL_CTRL_PIN, status);
-	blink_runing();
+	blink_heatting(status);
 }
 
-void coil_keep_warm(void)
+void coil_keep_warm(gpio_status status)
 {
-	blink_standby();
+	blink_keep_warming();
 }
 
 #endif /* COIL_C_ */
