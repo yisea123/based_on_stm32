@@ -61,6 +61,8 @@ extern ADC_HandleTypeDef hadc1;
 
 void MX_ADC1_Init(void);
 
+uint8_t get_chip_temp(void);
+
 /* USER CODE BEGIN Prototypes */
 
 /* USER CODE END Prototypes */

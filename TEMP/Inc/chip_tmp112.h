@@ -50,4 +50,6 @@ int temp_transfer(unsigned int degree);
 void temp_config(uint8_t addr, uint8_t data);
 uint16_t temp_read_temp(unsigned char address);
 
+
+
 #endif /* CHIP_TMP112_H_ */
