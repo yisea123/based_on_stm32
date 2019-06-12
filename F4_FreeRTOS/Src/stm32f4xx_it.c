@@ -48,8 +48,6 @@ extern SPI_HandleTypeDef hspi1;
 
 /* External variables --------------------------------------------------------*/
 extern DMA2D_HandleTypeDef hdma2d;
-extern DSI_HandleTypeDef hdsi;
-extern LTDC_HandleTypeDef hltdc;
 extern DMA_HandleTypeDef hdma_sdio_tx;
 extern TIM_HandleTypeDef htim6;
 
@@ -63,8 +61,7 @@ extern TIM_HandleTypeDef htim6;
 /**
  * @brief This function handles Non maskable interrupt.
  */
-void
-NMI_Handler (void)
+void NMI_Handler (void)
 {
 	/* USER CODE BEGIN NonMaskableInt_IRQn 0 */
 
@@ -77,8 +74,7 @@ NMI_Handler (void)
 /**
  * @brief This function handles Hard fault interrupt.
  */
-void
-HardFault_Handler (void)
+void HardFault_Handler (void)
 {
 	/* USER CODE BEGIN HardFault_IRQn 0 */
 
@@ -92,8 +88,7 @@ HardFault_Handler (void)
 /**
  * @brief This function handles Memory management fault.
  */
-void
-MemManage_Handler (void)
+void MemManage_Handler (void)
 {
 	/* USER CODE BEGIN MemoryManagement_IRQn 0 */
 
@@ -107,8 +102,7 @@ MemManage_Handler (void)
 /**
  * @brief This function handles Pre-fetch fault, memory access fault.
  */
-void
-BusFault_Handler (void)
+void BusFault_Handler (void)
 {
 	/* USER CODE BEGIN BusFault_IRQn 0 */
 
@@ -122,8 +116,7 @@ BusFault_Handler (void)
 /**
  * @brief This function handles Undefined instruction or illegal state.
  */
-void
-UsageFault_Handler (void)
+void UsageFault_Handler (void)
 {
 	/* USER CODE BEGIN UsageFault_IRQn 0 */
 
@@ -137,8 +130,7 @@ UsageFault_Handler (void)
 /**
  * @brief This function handles Debug monitor.
  */
-void
-DebugMon_Handler (void)
+void DebugMon_Handler (void)
 {
 	/* USER CODE BEGIN DebugMonitor_IRQn 0 */
 
@@ -178,8 +170,7 @@ DebugMon_Handler (void)
 /**
  * @brief This function handles DMA1 channel6 global interrupt.
  */
-void
-DMA1_Channel6_IRQHandler (void)
+void DMA1_Channel6_IRQHandler (void)
 {
 	/* USER CODE BEGIN DMA1_Channel6_IRQn 0 */
 
@@ -193,8 +184,7 @@ DMA1_Channel6_IRQHandler (void)
 /**
  * @brief This function handles DMA1 channel7 global interrupt.
  */
-void
-DMA1_Channel7_IRQHandler (void)
+void DMA1_Channel7_IRQHandler (void)
 {
 	/* USER CODE BEGIN DMA1_Channel7_IRQn 0 */
 
@@ -207,8 +197,7 @@ DMA1_Channel7_IRQHandler (void)
 /**
  * @brief This function handles TIM6 global interrupt, DAC1 and DAC2 underrun error interrupts.
  */
-void
-TIM6_DAC_IRQHandler (void)
+void TIM6_DAC_IRQHandler (void)
 {
 	/* USER CODE BEGIN TIM6_DAC_IRQn 0 */
 
@@ -222,8 +211,7 @@ TIM6_DAC_IRQHandler (void)
 /**
  * @brief This function handles DMA2 stream3 global interrupt.
  */
-void
-DMA2_Stream6_IRQHandler (void)
+void DMA2_Stream6_IRQHandler (void)
 {
 	/* USER CODE BEGIN DMA2_Stream3_IRQn 0 */
 
@@ -237,23 +225,12 @@ DMA2_Stream6_IRQHandler (void)
 /**
  * @brief This function handles LTDC global interrupt.
  */
-void
-LTDC_IRQHandler (void)
-{
-	/* USER CODE BEGIN LTDC_IRQn 0 */
 
-	/* USER CODE END LTDC_IRQn 0 */
-	HAL_LTDC_IRQHandler (&hltdc);
-	/* USER CODE BEGIN LTDC_IRQn 1 */
-
-	/* USER CODE END LTDC_IRQn 1 */
-}
 
 /**
  * @brief This function handles DMA2D global interrupt.
  */
-void
-DMA2D_IRQHandler (void)
+void DMA2D_IRQHandler (void)
 {
 	/* USER CODE BEGIN DMA2D_IRQn 0 */
 
@@ -267,24 +244,13 @@ DMA2D_IRQHandler (void)
 /**
  * @brief This function handles DSI global interrupt.
  */
-void
-DSI_IRQHandler (void)
-{
-	/* USER CODE BEGIN DSI_IRQn 0 */
 
-	/* USER CODE END DSI_IRQn 0 */
-	HAL_DSI_IRQHandler (&hdsi);
-	/* USER CODE BEGIN DSI_IRQn 1 */
-
-	/* USER CODE END DSI_IRQn 1 */
-}
 
 /** SPI1 -----------------------------------------------------------------*/
 /**
  * @brief This function handles DMA2 stream0 global interrupt.
  */
-void
-DMA2_Stream0_IRQHandler (void)
+void DMA2_Stream0_IRQHandler (void)
 {
 	/* USER CODE BEGIN DMA2_Stream0_IRQn 0 */
 
@@ -298,8 +264,7 @@ DMA2_Stream0_IRQHandler (void)
 /**
  * @brief This function handles DMA2 stream3 global interrupt.
  */
-void
-DMA2_Stream3_IRQHandler (void)
+void DMA2_Stream3_IRQHandler (void)
 {
 	/* USER CODE BEGIN DMA2_Stream3_IRQn 0 */
 

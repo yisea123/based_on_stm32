@@ -17,10 +17,6 @@ CRC_HandleTypeDef hcrc;
 
 DMA2D_HandleTypeDef hdma2d;
 
-DSI_HandleTypeDef hdsi;
-
-LTDC_HandleTypeDef hltdc;
-
 QSPI_HandleTypeDef hqspi;
 
 SD_HandleTypeDef hsd;
@@ -36,9 +32,9 @@ static void MX_GPIO_Init(void);
 static void MX_DMA_Init(void);
 static void MX_CRC_Init(void);
 static void MX_DMA2D_Init(void);
-static void MX_DSIHOST_DSI_Init(void);
+// static void MX_DSIHOST_DSI_Init(void);
 static void MX_FMC_Init(void);
-static void MX_LTDC_Init(void);
+// static void MX_LTDC_Init(void);
 static void MX_QUADSPI_Init(void);
 static void MX_SDIO_SD_Init(void);
 static void MX_TIM1_Init(void);
@@ -62,9 +58,7 @@ int main(void) {
 	MX_DMA_Init();
 	MX_CRC_Init();
 	MX_DMA2D_Init();
-	MX_DSIHOST_DSI_Init();
 	MX_FMC_Init();
-	MX_LTDC_Init();
 	MX_QUADSPI_Init();
 	MX_SDIO_SD_Init();
 	MX_TIM1_Init();
@@ -183,150 +177,150 @@ static void MX_DMA2D_Init(void) {
  * @param None
  * @retval None
  */
-static void MX_DSIHOST_DSI_Init(void) {
-	DSI_PLLInitTypeDef PLLInit = { 0 };
-	DSI_HOST_TimeoutTypeDef HostTimeouts = { 0 };
-	DSI_PHY_TimerTypeDef PhyTimings = { 0 };
-	DSI_LPCmdTypeDef LPCmd = { 0 };
-	DSI_CmdCfgTypeDef CmdCfg = { 0 };
-
-	hdsi.Instance = DSI;
-	hdsi.Init.AutomaticClockLaneControl = DSI_AUTO_CLK_LANE_CTRL_DISABLE;
-	hdsi.Init.TXEscapeCkdiv = 4;
-	hdsi.Init.NumberOfLanes = DSI_TWO_DATA_LANES;
-	PLLInit.PLLNDIV = 125;
-	PLLInit.PLLIDF = DSI_PLL_IN_DIV2;
-	PLLInit.PLLODF = DSI_PLL_OUT_DIV1;
-	if (HAL_DSI_Init(&hdsi, &PLLInit) != HAL_OK) {
-		Error_Handler();
-	}
-	HostTimeouts.TimeoutCkdiv = 1;
-	HostTimeouts.HighSpeedTransmissionTimeout = 0;
-	HostTimeouts.LowPowerReceptionTimeout = 0;
-	HostTimeouts.HighSpeedReadTimeout = 0;
-	HostTimeouts.LowPowerReadTimeout = 0;
-	HostTimeouts.HighSpeedWriteTimeout = 0;
-	HostTimeouts.HighSpeedWritePrespMode = DSI_HS_PM_DISABLE;
-	HostTimeouts.LowPowerWriteTimeout = 0;
-	HostTimeouts.BTATimeout = 0;
-	if (HAL_DSI_ConfigHostTimeouts(&hdsi, &HostTimeouts) != HAL_OK) {
-		Error_Handler();
-	}
-	PhyTimings.ClockLaneHS2LPTime = 28;
-	PhyTimings.ClockLaneLP2HSTime = 33;
-	PhyTimings.DataLaneHS2LPTime = 15;
-	PhyTimings.DataLaneLP2HSTime = 25;
-	PhyTimings.DataLaneMaxReadTime = 0;
-	PhyTimings.StopWaitTime = 10;
-	if (HAL_DSI_ConfigPhyTimer(&hdsi, &PhyTimings) != HAL_OK) {
-		Error_Handler();
-	}
-	if (HAL_DSI_ConfigFlowControl(&hdsi, DSI_FLOW_CONTROL_BTA) != HAL_OK) {
-		Error_Handler();
-	}
-	if (HAL_DSI_SetLowPowerRXFilter(&hdsi, 10000) != HAL_OK) {
-		Error_Handler();
-	}
-	if (HAL_DSI_ConfigErrorMonitor(&hdsi, HAL_DSI_ERROR_NONE) != HAL_OK) {
-		Error_Handler();
-	}
-	LPCmd.LPGenShortWriteNoP = DSI_LP_GSW0P_ENABLE;
-	LPCmd.LPGenShortWriteOneP = DSI_LP_GSW1P_ENABLE;
-	LPCmd.LPGenShortWriteTwoP = DSI_LP_GSW2P_ENABLE;
-	LPCmd.LPGenShortReadNoP = DSI_LP_GSR0P_ENABLE;
-	LPCmd.LPGenShortReadOneP = DSI_LP_GSR1P_ENABLE;
-	LPCmd.LPGenShortReadTwoP = DSI_LP_GSR2P_ENABLE;
-	LPCmd.LPGenLongWrite = DSI_LP_GLW_ENABLE;
-	LPCmd.LPDcsShortWriteNoP = DSI_LP_DSW0P_ENABLE;
-	LPCmd.LPDcsShortWriteOneP = DSI_LP_DSW1P_ENABLE;
-	LPCmd.LPDcsShortReadNoP = DSI_LP_DSR0P_ENABLE;
-	LPCmd.LPDcsLongWrite = DSI_LP_DLW_ENABLE;
-	LPCmd.LPMaxReadPacket = DSI_LP_MRDP_ENABLE;
-	LPCmd.AcknowledgeRequest = DSI_ACKNOWLEDGE_DISABLE;
-	if (HAL_DSI_ConfigCommand(&hdsi, &LPCmd) != HAL_OK) {
-		Error_Handler();
-	}
-	CmdCfg.VirtualChannelID = 0;
-	CmdCfg.ColorCoding = DSI_RGB888;
-	CmdCfg.CommandSize = 200;
-	CmdCfg.TearingEffectSource = DSI_TE_EXTERNAL;
-	CmdCfg.TearingEffectPolarity = DSI_TE_RISING_EDGE;
-	CmdCfg.HSPolarity = DSI_HSYNC_ACTIVE_LOW;
-	CmdCfg.VSPolarity = DSI_VSYNC_ACTIVE_LOW;
-	CmdCfg.DEPolarity = DSI_DATA_ENABLE_ACTIVE_HIGH;
-	CmdCfg.VSyncPol = DSI_VSYNC_FALLING;
-	CmdCfg.AutomaticRefresh = DSI_AR_ENABLE;
-	CmdCfg.TEAcknowledgeRequest = DSI_TE_ACKNOWLEDGE_ENABLE;
-	if (HAL_DSI_ConfigAdaptedCommandMode(&hdsi, &CmdCfg) != HAL_OK) {
-		Error_Handler();
-	}
-	if (HAL_DSI_SetGenericVCID(&hdsi, 0) != HAL_OK) {
-		Error_Handler();
-	}
-	/* USER CODE BEGIN DSIHOST_Init 2 */
-
-	/* USER CODE END DSIHOST_Init 2 */
-
-}
+//static void MX_DSIHOST_DSI_Init(void) {
+//	DSI_PLLInitTypeDef PLLInit = { 0 };
+//	DSI_HOST_TimeoutTypeDef HostTimeouts = { 0 };
+//	DSI_PHY_TimerTypeDef PhyTimings = { 0 };
+//	DSI_LPCmdTypeDef LPCmd = { 0 };
+//	DSI_CmdCfgTypeDef CmdCfg = { 0 };
+//
+//	hdsi.Instance = DSI;
+//	hdsi.Init.AutomaticClockLaneControl = DSI_AUTO_CLK_LANE_CTRL_DISABLE;
+//	hdsi.Init.TXEscapeCkdiv = 4;
+//	hdsi.Init.NumberOfLanes = DSI_TWO_DATA_LANES;
+//	PLLInit.PLLNDIV = 125;
+//	PLLInit.PLLIDF = DSI_PLL_IN_DIV2;
+//	PLLInit.PLLODF = DSI_PLL_OUT_DIV1;
+//	if (HAL_DSI_Init(&hdsi, &PLLInit) != HAL_OK) {
+//		Error_Handler();
+//	}
+//	HostTimeouts.TimeoutCkdiv = 1;
+//	HostTimeouts.HighSpeedTransmissionTimeout = 0;
+//	HostTimeouts.LowPowerReceptionTimeout = 0;
+//	HostTimeouts.HighSpeedReadTimeout = 0;
+//	HostTimeouts.LowPowerReadTimeout = 0;
+//	HostTimeouts.HighSpeedWriteTimeout = 0;
+//	HostTimeouts.HighSpeedWritePrespMode = DSI_HS_PM_DISABLE;
+//	HostTimeouts.LowPowerWriteTimeout = 0;
+//	HostTimeouts.BTATimeout = 0;
+//	if (HAL_DSI_ConfigHostTimeouts(&hdsi, &HostTimeouts) != HAL_OK) {
+//		Error_Handler();
+//	}
+//	PhyTimings.ClockLaneHS2LPTime = 28;
+//	PhyTimings.ClockLaneLP2HSTime = 33;
+//	PhyTimings.DataLaneHS2LPTime = 15;
+//	PhyTimings.DataLaneLP2HSTime = 25;
+//	PhyTimings.DataLaneMaxReadTime = 0;
+//	PhyTimings.StopWaitTime = 10;
+//	if (HAL_DSI_ConfigPhyTimer(&hdsi, &PhyTimings) != HAL_OK) {
+//		Error_Handler();
+//	}
+//	if (HAL_DSI_ConfigFlowControl(&hdsi, DSI_FLOW_CONTROL_BTA) != HAL_OK) {
+//		Error_Handler();
+//	}
+//	if (HAL_DSI_SetLowPowerRXFilter(&hdsi, 10000) != HAL_OK) {
+//		Error_Handler();
+//	}
+//	if (HAL_DSI_ConfigErrorMonitor(&hdsi, HAL_DSI_ERROR_NONE) != HAL_OK) {
+//		Error_Handler();
+//	}
+//	LPCmd.LPGenShortWriteNoP = DSI_LP_GSW0P_ENABLE;
+//	LPCmd.LPGenShortWriteOneP = DSI_LP_GSW1P_ENABLE;
+//	LPCmd.LPGenShortWriteTwoP = DSI_LP_GSW2P_ENABLE;
+//	LPCmd.LPGenShortReadNoP = DSI_LP_GSR0P_ENABLE;
+//	LPCmd.LPGenShortReadOneP = DSI_LP_GSR1P_ENABLE;
+//	LPCmd.LPGenShortReadTwoP = DSI_LP_GSR2P_ENABLE;
+//	LPCmd.LPGenLongWrite = DSI_LP_GLW_ENABLE;
+//	LPCmd.LPDcsShortWriteNoP = DSI_LP_DSW0P_ENABLE;
+//	LPCmd.LPDcsShortWriteOneP = DSI_LP_DSW1P_ENABLE;
+//	LPCmd.LPDcsShortReadNoP = DSI_LP_DSR0P_ENABLE;
+//	LPCmd.LPDcsLongWrite = DSI_LP_DLW_ENABLE;
+//	LPCmd.LPMaxReadPacket = DSI_LP_MRDP_ENABLE;
+//	LPCmd.AcknowledgeRequest = DSI_ACKNOWLEDGE_DISABLE;
+//	if (HAL_DSI_ConfigCommand(&hdsi, &LPCmd) != HAL_OK) {
+//		Error_Handler();
+//	}
+//	CmdCfg.VirtualChannelID = 0;
+//	CmdCfg.ColorCoding = DSI_RGB888;
+//	CmdCfg.CommandSize = 200;
+//	CmdCfg.TearingEffectSource = DSI_TE_EXTERNAL;
+//	CmdCfg.TearingEffectPolarity = DSI_TE_RISING_EDGE;
+//	CmdCfg.HSPolarity = DSI_HSYNC_ACTIVE_LOW;
+//	CmdCfg.VSPolarity = DSI_VSYNC_ACTIVE_LOW;
+//	CmdCfg.DEPolarity = DSI_DATA_ENABLE_ACTIVE_HIGH;
+//	CmdCfg.VSyncPol = DSI_VSYNC_FALLING;
+//	CmdCfg.AutomaticRefresh = DSI_AR_ENABLE;
+//	CmdCfg.TEAcknowledgeRequest = DSI_TE_ACKNOWLEDGE_ENABLE;
+//	if (HAL_DSI_ConfigAdaptedCommandMode(&hdsi, &CmdCfg) != HAL_OK) {
+//		Error_Handler();
+//	}
+//	if (HAL_DSI_SetGenericVCID(&hdsi, 0) != HAL_OK) {
+//		Error_Handler();
+//	}
+//	/* USER CODE BEGIN DSIHOST_Init 2 */
+//
+//	/* USER CODE END DSIHOST_Init 2 */
+//
+//}
 
 /**
  * @brief LTDC Initialization Function
  * @param None
  * @retval None
  */
-static void MX_LTDC_Init(void) {
-
-	/* USER CODE BEGIN LTDC_Init 0 */
-
-	/* USER CODE END LTDC_Init 0 */
-
-	LTDC_LayerCfgTypeDef pLayerCfg = { 0 };
-
-	/* USER CODE BEGIN LTDC_Init 1 */
-
-	/* USER CODE END LTDC_Init 1 */
-	hltdc.Instance = LTDC;
-	hltdc.Init.HSPolarity = LTDC_HSPOLARITY_AL;
-	hltdc.Init.VSPolarity = LTDC_VSPOLARITY_AL;
-	hltdc.Init.DEPolarity = LTDC_DEPOLARITY_AL;
-	hltdc.Init.PCPolarity = LTDC_PCPOLARITY_IPC;
-	hltdc.Init.HorizontalSync = 0;
-	hltdc.Init.VerticalSync = 0;
-	hltdc.Init.AccumulatedHBP = 1;
-	hltdc.Init.AccumulatedVBP = 1;
-	hltdc.Init.AccumulatedActiveW = 201;
-	hltdc.Init.AccumulatedActiveH = 481;
-	hltdc.Init.TotalWidth = 202;
-	hltdc.Init.TotalHeigh = 482;
-	hltdc.Init.Backcolor.Blue = 0;
-	hltdc.Init.Backcolor.Green = 0;
-	hltdc.Init.Backcolor.Red = 0;
-	if (HAL_LTDC_Init(&hltdc) != HAL_OK) {
-		Error_Handler();
-	}
-	pLayerCfg.WindowX0 = 0;
-	pLayerCfg.WindowX1 = 200;
-	pLayerCfg.WindowY0 = 0;
-	pLayerCfg.WindowY1 = 480;
-	pLayerCfg.PixelFormat = LTDC_PIXEL_FORMAT_RGB565;
-	pLayerCfg.Alpha = 255;
-	pLayerCfg.Alpha0 = 0;
-	pLayerCfg.BlendingFactor1 = LTDC_BLENDING_FACTOR1_PAxCA;
-	pLayerCfg.BlendingFactor2 = LTDC_BLENDING_FACTOR2_PAxCA;
-	pLayerCfg.FBStartAdress = 0xC0000000;
-	pLayerCfg.ImageWidth = 200;
-	pLayerCfg.ImageHeight = 480;
-	pLayerCfg.Backcolor.Blue = 0;
-	pLayerCfg.Backcolor.Green = 0;
-	pLayerCfg.Backcolor.Red = 0;
-	if (HAL_LTDC_ConfigLayer(&hltdc, &pLayerCfg, 0) != HAL_OK) {
-		Error_Handler();
-	}
-	/* USER CODE BEGIN LTDC_Init 2 */
-
-	/* USER CODE END LTDC_Init 2 */
-
-}
+//static void MX_LTDC_Init(void) {
+//
+//	/* USER CODE BEGIN LTDC_Init 0 */
+//
+//	/* USER CODE END LTDC_Init 0 */
+//
+//	LTDC_LayerCfgTypeDef pLayerCfg = { 0 };
+//
+//	/* USER CODE BEGIN LTDC_Init 1 */
+//
+//	/* USER CODE END LTDC_Init 1 */
+//	hltdc.Instance = LTDC;
+//	hltdc.Init.HSPolarity = LTDC_HSPOLARITY_AL;
+//	hltdc.Init.VSPolarity = LTDC_VSPOLARITY_AL;
+//	hltdc.Init.DEPolarity = LTDC_DEPOLARITY_AL;
+//	hltdc.Init.PCPolarity = LTDC_PCPOLARITY_IPC;
+//	hltdc.Init.HorizontalSync = 0;
+//	hltdc.Init.VerticalSync = 0;
+//	hltdc.Init.AccumulatedHBP = 1;
+//	hltdc.Init.AccumulatedVBP = 1;
+//	hltdc.Init.AccumulatedActiveW = 201;
+//	hltdc.Init.AccumulatedActiveH = 481;
+//	hltdc.Init.TotalWidth = 202;
+//	hltdc.Init.TotalHeigh = 482;
+//	hltdc.Init.Backcolor.Blue = 0;
+//	hltdc.Init.Backcolor.Green = 0;
+//	hltdc.Init.Backcolor.Red = 0;
+//	if (HAL_LTDC_Init(&hltdc) != HAL_OK) {
+//		Error_Handler();
+//	}
+//	pLayerCfg.WindowX0 = 0;
+//	pLayerCfg.WindowX1 = 200;
+//	pLayerCfg.WindowY0 = 0;
+//	pLayerCfg.WindowY1 = 480;
+//	pLayerCfg.PixelFormat = LTDC_PIXEL_FORMAT_RGB565;
+//	pLayerCfg.Alpha = 255;
+//	pLayerCfg.Alpha0 = 0;
+//	pLayerCfg.BlendingFactor1 = LTDC_BLENDING_FACTOR1_PAxCA;
+//	pLayerCfg.BlendingFactor2 = LTDC_BLENDING_FACTOR2_PAxCA;
+//	pLayerCfg.FBStartAdress = 0xC0000000;
+//	pLayerCfg.ImageWidth = 200;
+//	pLayerCfg.ImageHeight = 480;
+//	pLayerCfg.Backcolor.Blue = 0;
+//	pLayerCfg.Backcolor.Green = 0;
+//	pLayerCfg.Backcolor.Red = 0;
+//	if (HAL_LTDC_ConfigLayer(&hltdc, &pLayerCfg, 0) != HAL_OK) {
+//		Error_Handler();
+//	}
+//	/* USER CODE BEGIN LTDC_Init 2 */
+//
+//	/* USER CODE END LTDC_Init 2 */
+//
+//}
 
 /**
  * @brief QUADSPI Initialization Function
@@ -486,25 +480,17 @@ static void MX_GPIO_Init(void) {
 	GPIO_InitTypeDef GPIO_InitStruct = { 0 };
 
 	/* GPIO Ports Clock Enable */
-	__HAL_RCC_GPIOE_CLK_ENABLE()
-	;
+	__HAL_RCC_GPIOE_CLK_ENABLE();
 
-	__HAL_RCC_GPIOB_CLK_ENABLE()
-	;
-	__HAL_RCC_GPIOC_CLK_ENABLE()
-	;
-	__HAL_RCC_GPIOA_CLK_ENABLE()
-	;
+	__HAL_RCC_GPIOB_CLK_ENABLE();
+	__HAL_RCC_GPIOC_CLK_ENABLE();
+	__HAL_RCC_GPIOA_CLK_ENABLE();
 
-	__HAL_RCC_GPIOI_CLK_ENABLE()
-	;
-	__HAL_RCC_GPIOF_CLK_ENABLE()
-	;
+	__HAL_RCC_GPIOI_CLK_ENABLE();
+	__HAL_RCC_GPIOF_CLK_ENABLE();
 
-	__HAL_RCC_GPIOH_CLK_ENABLE()
-	;
-	__HAL_RCC_GPIOJ_CLK_ENABLE()
-	;
+	__HAL_RCC_GPIOH_CLK_ENABLE();
+	__HAL_RCC_GPIOJ_CLK_ENABLE();
 
 	/*Configure GPIO pin Output Level */
 	HAL_GPIO_WritePin(GPIOE, SPKR_HP_Pin | AUDIO_RST_Pin, GPIO_PIN_RESET);
