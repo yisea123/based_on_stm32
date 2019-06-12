@@ -18,9 +18,7 @@ I2C_HandleTypeDef hi2c2;
  * @param None
  * @retval None
  */
-void
-MX_I2C1_Init (uint32_t i2c_speed)
-{
+void MX_I2C1_Init(uint32_t i2c_speed) {
 	hi2c1.Instance = I2C1;
 	hi2c1.Init.ClockSpeed = i2c_speed;
 	hi2c1.Init.DutyCycle = I2C_DUTYCYCLE_2;
@@ -30,8 +28,8 @@ MX_I2C1_Init (uint32_t i2c_speed)
 	hi2c1.Init.OwnAddress2 = 0;
 	hi2c1.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
 	hi2c1.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
-	if (HAL_I2C_Init (&hi2c1) != HAL_OK) {
-		Error_Handler ();
+	if (HAL_I2C_Init(&hi2c1) != HAL_OK) {
+		Error_Handler();
 	}
 
 }
@@ -41,9 +39,7 @@ MX_I2C1_Init (uint32_t i2c_speed)
  * @param None
  * @retval None
  */
-void
-MX_I2C2_Init (uint32_t i2c_speed)
-{
+void MX_I2C2_Init(uint32_t i2c_speed) {
 	hi2c2.Instance = I2C2;
 	hi2c2.Init.ClockSpeed = i2c_speed;
 	hi2c2.Init.DutyCycle = I2C_DUTYCYCLE_2;
@@ -53,8 +49,8 @@ MX_I2C2_Init (uint32_t i2c_speed)
 	hi2c2.Init.OwnAddress2 = 0;
 	hi2c2.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
 	hi2c2.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
-	if (HAL_I2C_Init (&hi2c2) != HAL_OK) {
-		Error_Handler ();
+	if (HAL_I2C_Init(&hi2c2) != HAL_OK) {
+		Error_Handler();
 	}
 }
 
@@ -64,9 +60,7 @@ MX_I2C2_Init (uint32_t i2c_speed)
  * @param hi2c: I2C handle pointer
  * @retval None
  */
-void
-HAL_I2C_MspInit (I2C_HandleTypeDef* hi2c)
-{
+void HAL_I2C_MspInit(I2C_HandleTypeDef* hi2c) {
 
 	GPIO_InitTypeDef GPIO_InitStruct = { 0 };
 	if (hi2c->Instance == I2C1) {
@@ -89,7 +83,7 @@ HAL_I2C_MspInit (I2C_HandleTypeDef* hi2c)
 		GPIO_InitStruct.Pull = GPIO_PULLUP;
 		GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
 		GPIO_InitStruct.Alternate = GPIO_AF4_I2C1;
-		HAL_GPIO_Init (I2C1_Port, &GPIO_InitStruct);
+		HAL_GPIO_Init(I2C1_Port, &GPIO_InitStruct);
 
 		/* I2C1 DMA Init */
 		/* I2C1_RX Init */
@@ -101,8 +95,8 @@ HAL_I2C_MspInit (I2C_HandleTypeDef* hi2c)
 		hdma_i2c1_rx.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
 		hdma_i2c1_rx.Init.Mode = DMA_NORMAL;
 		hdma_i2c1_rx.Init.Priority = DMA_PRIORITY_LOW;
-		if (HAL_DMA_Init (&hdma_i2c1_rx) != HAL_OK) {
-			Error_Handler ();
+		if (HAL_DMA_Init(&hdma_i2c1_rx) != HAL_OK) {
+			Error_Handler();
 		}
 
 		__HAL_LINKDMA(hi2c, hdmarx, hdma_i2c1_rx);
@@ -116,14 +110,13 @@ HAL_I2C_MspInit (I2C_HandleTypeDef* hi2c)
 		hdma_i2c1_tx.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
 		hdma_i2c1_tx.Init.Mode = DMA_NORMAL;
 		hdma_i2c1_tx.Init.Priority = DMA_PRIORITY_LOW;
-		if (HAL_DMA_Init (&hdma_i2c1_tx) != HAL_OK) {
-			Error_Handler ();
+		if (HAL_DMA_Init(&hdma_i2c1_tx) != HAL_OK) {
+			Error_Handler();
 		}
 
 		__HAL_LINKDMA(hi2c, hdmatx, hdma_i2c1_tx);
 
-	}
-	else if (hi2c->Instance == I2C2) {
+	} else if (hi2c->Instance == I2C2) {
 		/* Peripheral clock enable */
 		__HAL_RCC_I2C2_CLK_ENABLE()
 		;
@@ -138,7 +131,7 @@ HAL_I2C_MspInit (I2C_HandleTypeDef* hi2c)
 		GPIO_InitStruct.Pull = GPIO_PULLUP;
 		GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
 		GPIO_InitStruct.Alternate = GPIO_AF4_I2C2;
-		HAL_GPIO_Init (GPIOH, &GPIO_InitStruct);
+		HAL_GPIO_Init(GPIOH, &GPIO_InitStruct);
 
 	}
 
@@ -150,9 +143,7 @@ HAL_I2C_MspInit (I2C_HandleTypeDef* hi2c)
  * @param hi2c: I2C handle pointer
  * @retval None
  */
-void
-HAL_I2C_MspDeInit (I2C_HandleTypeDef* hi2c)
-{
+void HAL_I2C_MspDeInit(I2C_HandleTypeDef* hi2c) {
 	if (hi2c->Instance == I2C1) {
 		/* Peripheral clock disable */
 		__HAL_RCC_I2C1_CLK_DISABLE();
@@ -161,13 +152,12 @@ HAL_I2C_MspDeInit (I2C_HandleTypeDef* hi2c)
 		 PB8     ------> I2C1_SCL
 		 PB9     ------> I2C1_SDA
 		 */
-		HAL_GPIO_DeInit (GPIOB, I2C1_SCL_Pin | I2C1_SDA_Pin);
+		HAL_GPIO_DeInit(GPIOB, I2C1_SCL_Pin | I2C1_SDA_Pin);
 
 		/* I2C1 DMA DeInit */
-		HAL_DMA_DeInit (hi2c->hdmarx);
-		HAL_DMA_DeInit (hi2c->hdmatx);
-	}
-	else if (hi2c->Instance == I2C2) {
+		HAL_DMA_DeInit(hi2c->hdmarx);
+		HAL_DMA_DeInit(hi2c->hdmatx);
+	} else if (hi2c->Instance == I2C2) {
 		/* USER CODE BEGIN I2C2_MspDeInit 0 */
 
 		/* USER CODE END I2C2_MspDeInit 0 */
@@ -178,7 +168,7 @@ HAL_I2C_MspDeInit (I2C_HandleTypeDef* hi2c)
 		 PH4     ------> I2C2_SCL
 		 PH5     ------> I2C2_SDA
 		 */
-		HAL_GPIO_DeInit (GPIOH, I2C2_SCL_Pin | I2C2_SDA_Pin);
+		HAL_GPIO_DeInit(GPIOH, I2C2_SCL_Pin | I2C2_SDA_Pin);
 
 	}
 

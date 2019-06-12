@@ -31,64 +31,49 @@ TIM_HandleTypeDef htim1;
 SDRAM_HandleTypeDef hsdram1;
 
 /* Private function prototypes -----------------------------------------------*/
-void
-SystemClock_Config (void);
-static void
-MX_GPIO_Init (void);
-static void
-MX_DMA_Init (void);
-static void
-MX_CRC_Init (void);
-static void
-MX_DMA2D_Init (void);
-static void
-MX_DSIHOST_DSI_Init (void);
-static void
-MX_FMC_Init (void);
-static void
-MX_LTDC_Init (void);
-static void
-MX_QUADSPI_Init (void);
-static void
-MX_SDIO_SD_Init (void);
-static void
-MX_TIM1_Init (void);
+void SystemClock_Config(void);
+static void MX_GPIO_Init(void);
+static void MX_DMA_Init(void);
+static void MX_CRC_Init(void);
+static void MX_DMA2D_Init(void);
+static void MX_DSIHOST_DSI_Init(void);
+static void MX_FMC_Init(void);
+static void MX_LTDC_Init(void);
+static void MX_QUADSPI_Init(void);
+static void MX_SDIO_SD_Init(void);
+static void MX_TIM1_Init(void);
 
-int
-main (void)
-{
+int main(void) {
 
 	/* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-	HAL_Init ();
+	HAL_Init();
 
 	/* Configure the system clock */
-	SystemClock_Config ();
+	SystemClock_Config();
 
 	/* USER CODE BEGIN SysInit */
-	blink_init ();
-	MX_USARTx_Init (USART3, 115200);
-	MX_I2C1_Init (400000);
+	blink_init();
+	MX_USARTx_Init(USART3, 115200);
+	MX_I2C1_Init(400000);
 	/* USER CODE END SysInit */
 
 	/* Initialize all configured peripherals */
-	MX_GPIO_Init ();
-	MX_DMA_Init ();
-	MX_CRC_Init ();
-	MX_DMA2D_Init ();
-	MX_DSIHOST_DSI_Init ();
-	MX_FMC_Init ();
-	MX_LTDC_Init ();
-	MX_QUADSPI_Init ();
-	MX_SDIO_SD_Init ();
-	MX_TIM1_Init ();
+	MX_GPIO_Init();
+	MX_DMA_Init();
+	MX_CRC_Init();
+	MX_DMA2D_Init();
+	MX_DSIHOST_DSI_Init();
+	MX_FMC_Init();
+	MX_LTDC_Init();
+	MX_QUADSPI_Init();
+	MX_SDIO_SD_Init();
+	MX_TIM1_Init();
 	/* init code for FATFS */
-	MX_FATFS_Init ();
-
-	oled_power_on ();
-
-	Usr_TaskCreate ();
+	MX_FATFS_Init();
+	// oled_power_on();
+	Usr_TaskCreate();
 	/* Start scheduler */
-	osKernelStart ();
+	osKernelStart();
 
 	/* We should never get here as control is now taken by the scheduler */
 
@@ -103,9 +88,7 @@ main (void)
  * @brief System Clock Configuration
  * @retval None
  */
-void
-SystemClock_Config (void)
-{
+void SystemClock_Config(void) {
 	RCC_OscInitTypeDef RCC_OscInitStruct = { 0 };
 	RCC_ClkInitTypeDef RCC_ClkInitStruct = { 0 };
 	RCC_PeriphCLKInitTypeDef PeriphClkInitStruct = { 0 };
@@ -126,13 +109,13 @@ SystemClock_Config (void)
 	RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
 	RCC_OscInitStruct.PLL.PLLQ = 6;
 	RCC_OscInitStruct.PLL.PLLR = 6;
-	if (HAL_RCC_OscConfig (&RCC_OscInitStruct) != HAL_OK) {
-		Error_Handler ();
+	if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK) {
+		Error_Handler();
 	}
 	/**Activate the Over-Drive mode
 	 */
-	if (HAL_PWREx_EnableOverDrive () != HAL_OK) {
-		Error_Handler ();
+	if (HAL_PWREx_EnableOverDrive() != HAL_OK) {
+		Error_Handler();
 	}
 	/**Initializes the CPU, AHB and APB busses clocks
 	 */
@@ -143,8 +126,8 @@ SystemClock_Config (void)
 	RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
 	RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
 
-	if (HAL_RCC_ClockConfig (&RCC_ClkInitStruct, FLASH_LATENCY_5) != HAL_OK) {
-		Error_Handler ();
+	if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_5) != HAL_OK) {
+		Error_Handler();
 	}
 	PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_SDIO
 			| RCC_PERIPHCLK_CLK48 | RCC_PERIPHCLK_LTDC;
@@ -154,8 +137,8 @@ SystemClock_Config (void)
 	PeriphClkInitStruct.PLLSAIDivR = RCC_PLLSAIDIVR_4;
 	PeriphClkInitStruct.Clk48ClockSelection = RCC_CLK48CLKSOURCE_PLLSAIP;
 	PeriphClkInitStruct.SdioClockSelection = RCC_SDIOCLKSOURCE_CLK48;
-	if (HAL_RCCEx_PeriphCLKConfig (&PeriphClkInitStruct) != HAL_OK) {
-		Error_Handler ();
+	if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK) {
+		Error_Handler();
 	}
 }
 
@@ -164,12 +147,10 @@ SystemClock_Config (void)
  * @param None
  * @retval None
  */
-static void
-MX_CRC_Init (void)
-{
+static void MX_CRC_Init(void) {
 	hcrc.Instance = CRC;
-	if (HAL_CRC_Init (&hcrc) != HAL_OK) {
-		Error_Handler ();
+	if (HAL_CRC_Init(&hcrc) != HAL_OK) {
+		Error_Handler();
 	}
 
 }
@@ -179,9 +160,7 @@ MX_CRC_Init (void)
  * @param None
  * @retval None
  */
-static void
-MX_DMA2D_Init (void)
-{
+static void MX_DMA2D_Init(void) {
 
 	hdma2d.Instance = DMA2D;
 	hdma2d.Init.Mode = DMA2D_M2M;
@@ -191,11 +170,11 @@ MX_DMA2D_Init (void)
 	hdma2d.LayerCfg[1].InputColorMode = DMA2D_INPUT_ARGB8888;
 	hdma2d.LayerCfg[1].AlphaMode = DMA2D_NO_MODIF_ALPHA;
 	hdma2d.LayerCfg[1].InputAlpha = 0;
-	if (HAL_DMA2D_Init (&hdma2d) != HAL_OK) {
-		Error_Handler ();
+	if (HAL_DMA2D_Init(&hdma2d) != HAL_OK) {
+		Error_Handler();
 	}
-	if (HAL_DMA2D_ConfigLayer (&hdma2d, 1) != HAL_OK) {
-		Error_Handler ();
+	if (HAL_DMA2D_ConfigLayer(&hdma2d, 1) != HAL_OK) {
+		Error_Handler();
 	}
 }
 
@@ -204,9 +183,7 @@ MX_DMA2D_Init (void)
  * @param None
  * @retval None
  */
-static void
-MX_DSIHOST_DSI_Init (void)
-{
+static void MX_DSIHOST_DSI_Init(void) {
 	DSI_PLLInitTypeDef PLLInit = { 0 };
 	DSI_HOST_TimeoutTypeDef HostTimeouts = { 0 };
 	DSI_PHY_TimerTypeDef PhyTimings = { 0 };
@@ -220,8 +197,8 @@ MX_DSIHOST_DSI_Init (void)
 	PLLInit.PLLNDIV = 125;
 	PLLInit.PLLIDF = DSI_PLL_IN_DIV2;
 	PLLInit.PLLODF = DSI_PLL_OUT_DIV1;
-	if (HAL_DSI_Init (&hdsi, &PLLInit) != HAL_OK) {
-		Error_Handler ();
+	if (HAL_DSI_Init(&hdsi, &PLLInit) != HAL_OK) {
+		Error_Handler();
 	}
 	HostTimeouts.TimeoutCkdiv = 1;
 	HostTimeouts.HighSpeedTransmissionTimeout = 0;
@@ -232,8 +209,8 @@ MX_DSIHOST_DSI_Init (void)
 	HostTimeouts.HighSpeedWritePrespMode = DSI_HS_PM_DISABLE;
 	HostTimeouts.LowPowerWriteTimeout = 0;
 	HostTimeouts.BTATimeout = 0;
-	if (HAL_DSI_ConfigHostTimeouts (&hdsi, &HostTimeouts) != HAL_OK) {
-		Error_Handler ();
+	if (HAL_DSI_ConfigHostTimeouts(&hdsi, &HostTimeouts) != HAL_OK) {
+		Error_Handler();
 	}
 	PhyTimings.ClockLaneHS2LPTime = 28;
 	PhyTimings.ClockLaneLP2HSTime = 33;
@@ -241,17 +218,17 @@ MX_DSIHOST_DSI_Init (void)
 	PhyTimings.DataLaneLP2HSTime = 25;
 	PhyTimings.DataLaneMaxReadTime = 0;
 	PhyTimings.StopWaitTime = 10;
-	if (HAL_DSI_ConfigPhyTimer (&hdsi, &PhyTimings) != HAL_OK) {
-		Error_Handler ();
+	if (HAL_DSI_ConfigPhyTimer(&hdsi, &PhyTimings) != HAL_OK) {
+		Error_Handler();
 	}
-	if (HAL_DSI_ConfigFlowControl (&hdsi, DSI_FLOW_CONTROL_BTA) != HAL_OK) {
-		Error_Handler ();
+	if (HAL_DSI_ConfigFlowControl(&hdsi, DSI_FLOW_CONTROL_BTA) != HAL_OK) {
+		Error_Handler();
 	}
-	if (HAL_DSI_SetLowPowerRXFilter (&hdsi, 10000) != HAL_OK) {
-		Error_Handler ();
+	if (HAL_DSI_SetLowPowerRXFilter(&hdsi, 10000) != HAL_OK) {
+		Error_Handler();
 	}
-	if (HAL_DSI_ConfigErrorMonitor (&hdsi, HAL_DSI_ERROR_NONE) != HAL_OK) {
-		Error_Handler ();
+	if (HAL_DSI_ConfigErrorMonitor(&hdsi, HAL_DSI_ERROR_NONE) != HAL_OK) {
+		Error_Handler();
 	}
 	LPCmd.LPGenShortWriteNoP = DSI_LP_GSW0P_ENABLE;
 	LPCmd.LPGenShortWriteOneP = DSI_LP_GSW1P_ENABLE;
@@ -266,8 +243,8 @@ MX_DSIHOST_DSI_Init (void)
 	LPCmd.LPDcsLongWrite = DSI_LP_DLW_ENABLE;
 	LPCmd.LPMaxReadPacket = DSI_LP_MRDP_ENABLE;
 	LPCmd.AcknowledgeRequest = DSI_ACKNOWLEDGE_DISABLE;
-	if (HAL_DSI_ConfigCommand (&hdsi, &LPCmd) != HAL_OK) {
-		Error_Handler ();
+	if (HAL_DSI_ConfigCommand(&hdsi, &LPCmd) != HAL_OK) {
+		Error_Handler();
 	}
 	CmdCfg.VirtualChannelID = 0;
 	CmdCfg.ColorCoding = DSI_RGB888;
@@ -280,11 +257,11 @@ MX_DSIHOST_DSI_Init (void)
 	CmdCfg.VSyncPol = DSI_VSYNC_FALLING;
 	CmdCfg.AutomaticRefresh = DSI_AR_ENABLE;
 	CmdCfg.TEAcknowledgeRequest = DSI_TE_ACKNOWLEDGE_ENABLE;
-	if (HAL_DSI_ConfigAdaptedCommandMode (&hdsi, &CmdCfg) != HAL_OK) {
-		Error_Handler ();
+	if (HAL_DSI_ConfigAdaptedCommandMode(&hdsi, &CmdCfg) != HAL_OK) {
+		Error_Handler();
 	}
-	if (HAL_DSI_SetGenericVCID (&hdsi, 0) != HAL_OK) {
-		Error_Handler ();
+	if (HAL_DSI_SetGenericVCID(&hdsi, 0) != HAL_OK) {
+		Error_Handler();
 	}
 	/* USER CODE BEGIN DSIHOST_Init 2 */
 
@@ -297,9 +274,7 @@ MX_DSIHOST_DSI_Init (void)
  * @param None
  * @retval None
  */
-static void
-MX_LTDC_Init (void)
-{
+static void MX_LTDC_Init(void) {
 
 	/* USER CODE BEGIN LTDC_Init 0 */
 
@@ -326,8 +301,8 @@ MX_LTDC_Init (void)
 	hltdc.Init.Backcolor.Blue = 0;
 	hltdc.Init.Backcolor.Green = 0;
 	hltdc.Init.Backcolor.Red = 0;
-	if (HAL_LTDC_Init (&hltdc) != HAL_OK) {
-		Error_Handler ();
+	if (HAL_LTDC_Init(&hltdc) != HAL_OK) {
+		Error_Handler();
 	}
 	pLayerCfg.WindowX0 = 0;
 	pLayerCfg.WindowX1 = 200;
@@ -344,8 +319,8 @@ MX_LTDC_Init (void)
 	pLayerCfg.Backcolor.Blue = 0;
 	pLayerCfg.Backcolor.Green = 0;
 	pLayerCfg.Backcolor.Red = 0;
-	if (HAL_LTDC_ConfigLayer (&hltdc, &pLayerCfg, 0) != HAL_OK) {
-		Error_Handler ();
+	if (HAL_LTDC_ConfigLayer(&hltdc, &pLayerCfg, 0) != HAL_OK) {
+		Error_Handler();
 	}
 	/* USER CODE BEGIN LTDC_Init 2 */
 
@@ -358,9 +333,7 @@ MX_LTDC_Init (void)
  * @param None
  * @retval None
  */
-static void
-MX_QUADSPI_Init (void)
-{
+static void MX_QUADSPI_Init(void) {
 
 	/* USER CODE BEGIN QUADSPI_Init 0 */
 
@@ -379,8 +352,8 @@ MX_QUADSPI_Init (void)
 	hqspi.Init.ClockMode = QSPI_CLOCK_MODE_0;
 	hqspi.Init.FlashID = QSPI_FLASH_ID_1;
 	hqspi.Init.DualFlash = QSPI_DUALFLASH_DISABLE;
-	if (HAL_QSPI_Init (&hqspi) != HAL_OK) {
-		Error_Handler ();
+	if (HAL_QSPI_Init(&hqspi) != HAL_OK) {
+		Error_Handler();
 	}
 	/* USER CODE BEGIN QUADSPI_Init 2 */
 
@@ -393,9 +366,7 @@ MX_QUADSPI_Init (void)
  * @param None
  * @retval None
  */
-static void
-MX_SDIO_SD_Init (void)
-{
+static void MX_SDIO_SD_Init(void) {
 
 	/* USER CODE BEGIN SDIO_Init 0 */
 
@@ -422,9 +393,7 @@ MX_SDIO_SD_Init (void)
  * @param None
  * @retval None
  */
-static void
-MX_TIM1_Init (void)
-{
+static void MX_TIM1_Init(void) {
 
 	/* USER CODE BEGIN TIM1_Init 0 */
 
@@ -442,18 +411,18 @@ MX_TIM1_Init (void)
 	htim1.Init.Period = 0;
 	htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
 	htim1.Init.RepetitionCounter = 0;
-	if (HAL_TIM_Base_Init (&htim1) != HAL_OK) {
-		Error_Handler ();
+	if (HAL_TIM_Base_Init(&htim1) != HAL_OK) {
+		Error_Handler();
 	}
 	sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
-	if (HAL_TIM_ConfigClockSource (&htim1, &sClockSourceConfig) != HAL_OK) {
-		Error_Handler ();
+	if (HAL_TIM_ConfigClockSource(&htim1, &sClockSourceConfig) != HAL_OK) {
+		Error_Handler();
 	}
 	sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
 	sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
-	if (HAL_TIMEx_MasterConfigSynchronization (&htim1, &sMasterConfig)
+	if (HAL_TIMEx_MasterConfigSynchronization(&htim1, &sMasterConfig)
 			!= HAL_OK) {
-		Error_Handler ();
+		Error_Handler();
 	}
 	/* USER CODE BEGIN TIM1_Init 2 */
 
@@ -464,23 +433,19 @@ MX_TIM1_Init (void)
 /**
  * Enable DMA controller clock
  */
-static void
-MX_DMA_Init (void)
-{
+static void MX_DMA_Init(void) {
 	/* DMA controller clock enable */
 	__HAL_RCC_DMA2_CLK_ENABLE()
 	;
 
 	/* DMA interrupt init */
 	/* DMA2_Stream3_IRQn interrupt configuration */
-	HAL_NVIC_SetPriority (DMA2_Stream3_IRQn, 5, 0);
-	HAL_NVIC_EnableIRQ (DMA2_Stream3_IRQn);
+	HAL_NVIC_SetPriority(DMA2_Stream3_IRQn, 5, 0);
+	HAL_NVIC_EnableIRQ(DMA2_Stream3_IRQn);
 
 }
 /* FMC initialization function */
-static void
-MX_FMC_Init (void)
-{
+static void MX_FMC_Init(void) {
 	FMC_SDRAM_TimingTypeDef SdramTiming;
 
 	/** Perform the SDRAM1 memory initialization sequence
@@ -506,8 +471,8 @@ MX_FMC_Init (void)
 	SdramTiming.RPDelay = 2;
 	SdramTiming.RCDDelay = 2;
 
-	if (HAL_SDRAM_Init (&hsdram1, &SdramTiming) != HAL_OK) {
-		Error_Handler ();
+	if (HAL_SDRAM_Init(&hsdram1, &SdramTiming) != HAL_OK) {
+		Error_Handler();
 	}
 
 }
@@ -517,9 +482,7 @@ MX_FMC_Init (void)
  * @param None
  * @retval None
  */
-static void
-MX_GPIO_Init (void)
-{
+static void MX_GPIO_Init(void) {
 	GPIO_InitTypeDef GPIO_InitStruct = { 0 };
 
 	/* GPIO Ports Clock Enable */
@@ -544,63 +507,63 @@ MX_GPIO_Init (void)
 	;
 
 	/*Configure GPIO pin Output Level */
-	HAL_GPIO_WritePin (GPIOE, SPKR_HP_Pin | AUDIO_RST_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(GPIOE, SPKR_HP_Pin | AUDIO_RST_Pin, GPIO_PIN_RESET);
 
 	/*Configure GPIO pin Output Level */
-	HAL_GPIO_WritePin (GPIOB, OTG_FS1_PowerSwitchOn_Pin | EXT_RESET_Pin,
-						GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(GPIOB, OTG_FS1_PowerSwitchOn_Pin | EXT_RESET_Pin,
+			GPIO_PIN_RESET);
 
 	/*Configure GPIO pin Output Level */
-	HAL_GPIO_WritePin (GPIOH, GPIO_PIN_7, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(GPIOH, GPIO_PIN_7, GPIO_PIN_RESET);
 
 	/*Configure GPIO pin Output Level */
-	HAL_GPIO_WritePin (LCD_BL_CTRL_GPIO_Port, LCD_BL_CTRL_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(LCD_BL_CTRL_GPIO_Port, LCD_BL_CTRL_Pin, GPIO_PIN_RESET);
 
 	/*Configure GPIO pins : SPKR_HP_Pin AUDIO_RST_Pin */
 	GPIO_InitStruct.Pin = SPKR_HP_Pin | AUDIO_RST_Pin;
 	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
 	GPIO_InitStruct.Pull = GPIO_NOPULL;
 	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-	HAL_GPIO_Init (GPIOE, &GPIO_InitStruct);
+	HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
 
 	/*Configure GPIO pin : OTG_FS1_OverCurrent_Pin */
 	GPIO_InitStruct.Pin = OTG_FS1_OverCurrent_Pin;
 	GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
 	GPIO_InitStruct.Pull = GPIO_NOPULL;
-	HAL_GPIO_Init (OTG_FS1_OverCurrent_GPIO_Port, &GPIO_InitStruct);
+	HAL_GPIO_Init(OTG_FS1_OverCurrent_GPIO_Port, &GPIO_InitStruct);
 
 	/*Configure GPIO pins : OTG_FS1_PowerSwitchOn_Pin EXT_RESET_Pin */
 	GPIO_InitStruct.Pin = OTG_FS1_PowerSwitchOn_Pin | EXT_RESET_Pin;
 	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
 	GPIO_InitStruct.Pull = GPIO_NOPULL;
 	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-	HAL_GPIO_Init (GPIOB, &GPIO_InitStruct);
+	HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
 	/*Configure GPIO pin : uSD_Detect_Pin */
 	GPIO_InitStruct.Pin = uSD_Detect_Pin;
 	GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
 	GPIO_InitStruct.Pull = GPIO_NOPULL;
-	HAL_GPIO_Init (uSD_Detect_GPIO_Port, &GPIO_InitStruct);
+	HAL_GPIO_Init(uSD_Detect_GPIO_Port, &GPIO_InitStruct);
 
 	/*Configure GPIO pin : LCD_INT_Pin */
 	GPIO_InitStruct.Pin = LCD_INT_Pin;
 	GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
 	GPIO_InitStruct.Pull = GPIO_NOPULL;
-	HAL_GPIO_Init (LCD_INT_GPIO_Port, &GPIO_InitStruct);
+	HAL_GPIO_Init(LCD_INT_GPIO_Port, &GPIO_InitStruct);
 
 	/*Configure GPIO pin : PH7 */
 	GPIO_InitStruct.Pin = GPIO_PIN_7;
 	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
 	GPIO_InitStruct.Pull = GPIO_NOPULL;
 	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-	HAL_GPIO_Init (GPIOH, &GPIO_InitStruct);
+	HAL_GPIO_Init(GPIOH, &GPIO_InitStruct);
 
 	/*Configure GPIO pin : LCD_BL_CTRL_Pin */
 	GPIO_InitStruct.Pin = LCD_BL_CTRL_Pin;
 	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
 	GPIO_InitStruct.Pull = GPIO_NOPULL;
 	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-	HAL_GPIO_Init (LCD_BL_CTRL_GPIO_Port, &GPIO_InitStruct);
+	HAL_GPIO_Init(LCD_BL_CTRL_GPIO_Port, &GPIO_InitStruct);
 
 }
 
@@ -618,14 +581,12 @@ MX_GPIO_Init (void)
  * @param  htim : TIM handle
  * @retval None
  */
-void
-HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
-{
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 	/* USER CODE BEGIN Callback 0 */
 
 	/* USER CODE END Callback 0 */
 	if (htim->Instance == TIM6) {
-		HAL_IncTick ();
+		HAL_IncTick();
 	}
 	/* USER CODE BEGIN Callback 1 */
 
@@ -636,9 +597,7 @@ HAL_TIM_PeriodElapsedCallback (TIM_HandleTypeDef *htim)
  * @brief  This function is executed in case of error occurrence.
  * @retval None
  */
-void
-Error_Handler (void)
-{
+void Error_Handler(void) {
 	/* USER CODE BEGIN Error_Handler_Debug */
 	/* User can add his own implementation to report the HAL error return state */
 
