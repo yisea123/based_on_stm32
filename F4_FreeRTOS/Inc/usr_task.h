@@ -19,7 +19,7 @@
 
 osThreadId 		defaultTaskHandle;
 osThreadId 		BLE_TaskHandle;
-osThreadId 		USART_TaskHandle;
+osThreadId 		show_all_task_TaskHandle;
 osThreadId 		Display_Handle;
 osThreadId 		LED_BlinkHandle;
 osThreadId 		W5500_Handle;
@@ -27,7 +27,7 @@ osThreadId 		W5500_Handle;
 void StartDefaultTask(void const * argument);
 void LED_Blink_Entry(void const * argument);
 void BLE_Task_Entry(void const * argument);
-void USART_Task_Entry(void const * argument);
+void show_all_task(void const * argument);
 void Display_Task_Entry(void const * argument);
 void W5500_Task_Entry(void const * argument);
 

@@ -22,8 +22,8 @@ void Usr_TaskCreate(void)
 	BLE_TaskHandle = osThreadCreate(osThread(BLE_Task), NULL);
 
 	/* definition and creation of USART_Task */
-	osThreadDef(USART_Task, USART_Task_Entry, osPriorityNormal, 0, 512);
-	USART_TaskHandle = osThreadCreate(osThread(USART_Task), NULL);
+	osThreadDef(all_task, show_all_task, osPriorityNormal, 0, 512);
+	show_all_task_TaskHandle = osThreadCreate(osThread(all_task), NULL);
 
 	/* definition and creation of Display_Task */
 	osThreadDef(Display_Task, Display_Task_Entry, osPriorityAboveNormal, 0, 512);
@@ -121,16 +121,16 @@ void BLE_Task_Entry(void const * argument)
   /* USER CODE END BLE_Task_Entry */
 }
 
-/* USER CODE BEGIN Header_USART_Task_Entry */
+/* USER CODE BEGIN Header_show_all_task */
 /**
 * @brief Function implementing the USART_Task thread.
 * @param argument: Not used
 * @retval None
 */
-/* USER CODE END Header_USART_Task_Entry */
-void USART_Task_Entry(void const * argument)
+/* USER CODE END Header_show_all_task */
+void show_all_task(void const * argument)
 {
-  /* USER CODE BEGIN USART_Task_Entry */
+  /* USER CODE BEGIN show_all_task */
   /* Infinite loop */
 	static uint8_t usart_loop = 0;
 	uint8_t buff[128]="-------------------------------------------------\r\n";
@@ -158,7 +158,7 @@ void USART_Task_Entry(void const * argument)
 		uasrtx_send_string(&huart3, buff, buff_len);
 		osDelay(2000);
 	}
-  /* USER CODE END USART_Task_Entry */
+  /* USER CODE END show_all_task */
 }
 
 /* USER CODE BEGIN Header_Display_Task_Entry */
