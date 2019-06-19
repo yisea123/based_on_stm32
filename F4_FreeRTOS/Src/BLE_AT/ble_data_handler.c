@@ -39,16 +39,16 @@ unsigned char * union_char_str(unsigned char *str1, unsigned char *str2)
 	return buff_head;
 }
 
-int search_str_in_str(unsigned char *str, unsigned char *buff)
+int search_str_in_str(unsigned char *in, unsigned char *find)
 {
 	int found_flag = 0;
-	if(!str || !buff) {
+	if(!in || !find) {
 		return -1;
 	}
-	while('\0' != str) {
-		if(*buff == *str && '\0' != *buff) {
-			buff++;
-			str++;
+	while(NULL != in) {
+		if(*find == *in && '\0' != *find) {
+			find++;
+			in++;
 			found_flag = 1;
 		} else
 			found_flag = 0;

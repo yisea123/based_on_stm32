@@ -60,7 +60,10 @@ int main(void) {
 	MX_DMA2D_Init();
 	MX_FMC_Init();
 	MX_QUADSPI_Init();
+	// init sd card
 	MX_SDIO_SD_Init();
+	BSP_SD_Init();
+
 	MX_TIM1_Init();
 	/* init code for FATFS */
 	MX_FATFS_Init();
